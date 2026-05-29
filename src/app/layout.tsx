@@ -13,6 +13,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://portfolio-29salahmo.vercel.app");
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -28,7 +34,7 @@ export const metadata: Metadata = {
   },
   description:
     "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.",
-  metadataBase: new URL("https://salahaldin.dev"),
+  metadataBase: new URL(siteUrl.startsWith("http") ? siteUrl : `https://${siteUrl}`),
   openGraph: {
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:

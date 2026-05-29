@@ -40,12 +40,23 @@ src/
 - `prefers-reduced-motion` disables custom cursor and lowers 3D quality.
 - Edit project data in `src/data/projects.ts` (add `live` URLs when ready).
 
-## Deploy (Vercel)
+## Deploy (GitHub + Vercel)
 
-1. Push `portfolio/` to GitHub.
-2. Import on Vercel, framework preset: Next.js.
-3. Set env if needed; default build: `npm run build`.
-4. Update `metadataBase` in `src/app/layout.tsx` to your real domain.
+**Repository:** [github.com/29SalahMo/portfolio](https://github.com/29SalahMo/portfolio)
+
+### Vercel (recommended, ~2 minutes)
+
+1. Sign in at [vercel.com](https://vercel.com) with your GitHub account.
+2. Click **Add New Project** → **Import** `29SalahMo/portfolio`.
+3. Keep defaults:
+   - Framework: **Next.js**
+   - Root Directory: `./`
+   - Build Command: `npm run build`
+   - Output: (auto)
+4. Click **Deploy**. Vercel builds and gives you a live URL (e.g. `portfolio-xxx.vercel.app`).
+5. Optional: **Settings → Domains** to add a custom domain later.
+
+Every push to `main` will auto-redeploy.
 
 ## Lighthouse tips
 
