@@ -12,6 +12,7 @@ type MagneticButtonProps = {
   className?: string;
   external?: boolean;
   type?: "button" | "submit";
+  download?: string | boolean;
 };
 
 export function MagneticButton({
@@ -22,6 +23,7 @@ export function MagneticButton({
   className,
   external,
   type = "button",
+  download,
 }: MagneticButtonProps) {
   const { ref, onMove, onLeave } = useMagnetic(0.28);
 
@@ -44,6 +46,7 @@ export function MagneticButton({
         onMouseLeave={onLeave}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
+        download={download}
       >
         {children}
       </Link>

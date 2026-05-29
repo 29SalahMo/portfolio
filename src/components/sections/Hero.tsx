@@ -100,6 +100,16 @@ export function Hero() {
           className="mt-8 flex flex-wrap justify-center gap-3 sm:mt-10 sm:gap-4"
         >
           <MagneticButton href="#projects">View Projects</MagneticButton>
+          <MagneticButton
+            href={profile.cv.en}
+            external
+            download="Salahaldin_CV_EN.pdf"
+          >
+            CV (English)
+          </MagneticButton>
+          <MagneticButton href={profile.cv.ar} variant="ghost" external>
+            CV (Arabic)
+          </MagneticButton>
           <MagneticButton href="#contact" variant="ghost">
             Contact Me
           </MagneticButton>

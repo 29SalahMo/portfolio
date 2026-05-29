@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيرة الذاتية — صلاح الدين محمد</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1a5276;
+    --blue-light: #2e86c1;
+    --dark: #1c2833;
+    --gray: #5d6d7e;
+    --gray-light: #aab7b8;
+    --bg: #ffffff;
+    --section-gap: 22px;
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    direction: rtl;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 36px 44px;
+    background: #fff;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--blue);
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+  }
+  .header .titles {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .header .titles span {
+    display: inline-block;
+    margin: 0 6px;
+    color: var(--blue-light);
+    font-weight: 600;
+  }
+  .header .titles .sep { color: var(--gray-light); font-weight: 300; }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-size: 12px;
+    color: var(--dark);
+  }
+  .contact-row a { color: var(--blue); text-decoration: none; font-weight: 600; }
+  .contact-row .dot { color: var(--gray-light); }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: var(--section-gap); }
+  .section-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-bottom: 5px;
+    border-bottom: 2.5px solid var(--blue);
+    margin-bottom: 12px;
+  }
+
+  /* ── SUMMARY ── */
+  .summary p {
+    font-size: 12.5px;
+    color: #34495e;
+    line-height: 1.75;
+    text-align: justify;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 16px;
+  }
+  .skill-cat h4 {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 3px;
+  }
+  .skill-cat p {
+    font-size: 11px;
+    color: var(--dark);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* ── PROJECT ── */
+  .project { margin-bottom: 14px; }
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+  .project-header .right { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .project-header h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .project-header .type {
+    font-size: 11.5px;
+    color: var(--blue-light);
+    font-weight: 600;
+  }
+  .project-header .date {
+    font-size: 11px;
+    color: var(--gray);
+    font-style: italic;
+    white-space: nowrap;
+  }
+  .tech-line {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 5px;
+    font-style: italic;
+    direction: ltr;
+    text-align: right;
+  }
+  .tech-line strong { color: var(--gray); font-style: normal; }
+
+  .project ul { padding-right: 16px; }
+  .project ul li {
+    font-size: 12px;
+    color: #2c3e50;
+    line-height: 1.65;
+    margin-bottom: 2px;
+    list-style: disc;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-item { margin-bottom: 12px; }
+  .edu-item .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .edu-item h3 { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .edu-item .date { font-size: 11px; color: var(--gray); font-style: italic; }
+  .edu-item .school { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .edu-item .detail { font-size: 11px; color: var(--gray); font-style: italic; margin-top: 1px; }
+
+  /* ── CERT ── */
+  .cert-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 7px;
+    font-size: 12px;
+  }
+  .cert-item .cert-right { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .cert-item strong { color: var(--dark); }
+  .cert-item .issuer { color: var(--blue-light); font-weight: 600; }
+  .cert-item .date { color: var(--gray); font-style: italic; font-size: 11px; }
+
+  /* ── LANGUAGES ── */
+  .lang-row { display: flex; gap: 30px; font-size: 12.5px; }
+  .lang-item strong { color: var(--dark); font-weight: 700; }
+  .lang-item span { color: var(--gray); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--gray-light);
+    font-style: italic;
+    padding-top: 14px;
+    border-top: 1px solid #dde;
+    margin-top: 20px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { font-size: 12px; }
+    .page { padding: 20px 28px; }
+    .section { margin-bottom: 16px; }
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 20px 16px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>صلاح الدين محمد صلاح الدين عبدالله</h1>
+    <div class="titles">
+      <span>مهندس علوم حاسب</span>
+      <span class="sep">|</span>
+      <span>مطور Full Stack</span>
+      <span class="sep">|</span>
+      <span>مطور تطبيقات موبايل</span>
+      <span class="sep">|</span>
+      <span>ذكاء اصطناعي ومعالجة لغات NLP</span>
+      <span class="sep">|</span>
+      <span>أمن سيبراني</span>
+    </div>
+    <div class="contact-row">
+      <span>📞 01018394829</span>
+      <span class="dot">·</span>
+      <span>✉ salahmohamed2912004@gmail.com</span>
+      <span class="dot">·</span>
+      <span>📍 الجيزة، 6 أكتوبر، مصر</span>
+      <span class="dot">·</span>
+      <a href="https://linkedin.com/in/salahaldin291" target="_blank">LinkedIn</a>
+      <span class="dot">·</span>
+      <a href="https://github.com/29SalahMo" target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section summary">
+    <div class="section-title">الملخص المهني</div>
+    <p>
+      مهندس علوم حاسب ومطور Full Stack حاصل على بكالوريوس من جامعة غرينتش البريطانية وجامعة MSA.
+      يمتلك خبرة عملية في بناء تطبيقات ويب وموبايل حقيقية تجاوزت 12 مشروعاً — تشمل أنظمة إدارة مطاعم، متاجر إلكترونية، تطبيقات تغذية، بوابات مالية، ومنصات تعليمية.
+      مشروع التخرج في مجال الذكاء الاصطناعي ومعالجة اللغات الطبيعية (NLP) مع تصميم تجربة مستخدم متكاملة (HCI)، حاصل على تقدير امتياز.
+      متمكّن من React وNext.js وNode.js وNestJS وReact Native وDocker وTypeScript.
+      يسعى للحصول على فرص عمل عن بُعد أو دولية في مجال هندسة البرمجيات.
+    </p>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-title">المهارات التقنية</div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h4>لغات البرمجة</h4>
+        <p>JavaScript (ES6+) · TypeScript · PHP · SQL · HTML5 · CSS3 · Python · C#</p>
+      </div>
+      <div class="skill-cat">
+        <h4>تطوير الواجهة الأمامية</h4>
+        <p>React.js · Next.js · Vite · React Router · Tailwind CSS · Framer Motion · Radix UI</p>
+      </div>
+      <div class="skill-cat">
+        <h4>تطوير الموبايل</h4>
+        <p>React Native · Expo Router · NativeWind · Reanimated · Zustand · AsyncStorage</p>
+      </div>
+      <div class="skill-cat">
+        <h4>تطوير الواجهة الخلفية</h4>
+        <p>Node.js · Express.js · NestJS · Fastify · RESTful APIs · Rate Limiting · Zod</p>
+      </div>
+      <div class="skill-cat">
+        <h4>قواعد البيانات والـ ORM</h4>
+        <p>MySQL · PostgreSQL · MongoDB · Prisma ORM · TypeORM · Sequelize · Redis</p>
+      </div>
+      <div class="skill-cat">
+        <h4>المصادقة والأمان</h4>
+        <p>JWT · Passport · Bcrypt · RBAC · Input Validation · API Security · HCIA-Security</p>
+      </div>
+      <div class="skill-cat">
+        <h4>الدفع والتكامل</h4>
+        <p>Stripe · WhatsApp Cloud API · Socket.IO · Nodemailer/SMTP · Swagger/OpenAPI</p>
+      </div>
+      <div class="skill-cat">
+        <h4>DevOps والأدوات</h4>
+        <p>Docker · Docker Compose · Git · GitHub · Linux</p>
+      </div>
+      <div class="skill-cat">
+        <h4>البيانات وواجهات المستخدم</h4>
+        <p>TanStack Query · React Hook Form · React Three Fiber · Three.js · i18next · PWA</p>
+      </div>
+      <div class="skill-cat">
+        <h4>الذكاء الاصطناعي / NLP</h4>
+        <p>HuggingFace Transformers · SentenceTransformers · Abstractive Summarization · Semantic Similarity</p>
+      </div>
+      <div class="skill-cat">
+        <h4>HCI وتجربة المستخدم</h4>
+        <p>التصميم المتمحور حول المستخدم · إمكانية الوصول · النمذجة التفاعلية · مبادئ سهولة الاستخدام</p>
+      </div>
+      <div class="skill-cat">
+        <h4>الشبكات</h4>
+        <p>أساسيات CCNA · بروتوكولات الشبكات · دعم تقني IT Support</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-title">المشاريع</div>
+
+    <!-- Graduation -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>ملخّص النصوص بالذكاء الاصطناعي — مشروع التخرج</h3>
+          <span class="type">NLP · HCI · Full Stack</span>
+        </div>
+        <span class="date">2025 – 2026</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> Python · Flask · HuggingFace Transformers · SentenceTransformers · REST API · HTML/CSS/JS</div>
+      <ul>
+        <li>مشروع التخرج النهائي: تصميم وبناء تطبيق ويب متكامل لتلخيص النصوص باستخدام الذكاء الاصطناعي</li>
+        <li>تطبيق معالجة اللغات الطبيعية (NLP) باستخدام HuggingFace Transformers لتلخيص استخلاصي عالي الجودة للنصوص الطويلة</li>
+        <li>بناء نموذج قياس التشابه الدلالي بين الجمل باستخدام SentenceTransformers لاستخراج أهم المحتوى</li>
+        <li>تصميم تجربة تفاعل إنسان-حاسوب (HCI) متكاملة: واجهة بديهية، تغذية راجعة فورية، وتصميم مُيسَّر لغير المتخصصين</li>
+        <li>بناء REST API بـ Flask للتعامل مع طلبات التلخيص مع معالجة الحالات الاستثنائية والتحقق من المدخلات</li>
+        <li>حصل المشروع على تقدير <strong>امتياز</strong> في الجودة التقنية والعمق البحثي والتوثيق</li>
+      </ul>
+    </div>
+
+    <!-- Cafes -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>نظام إدارة المطاعم المصري (Cafes System)</h3>
+          <span class="type">Full Stack · إنتاجي</span>
+        </div>
+        <span class="date">2024 – 2025</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> NestJS · TypeORM · JWT · Passport · Socket.IO · Fastify · Next.js · TanStack Query · Zustand · Docker · Docker Compose</div>
+      <ul>
+        <li>بناء منصة متعددة الأدوار تغطي نقطة البيع (POS)، شاشة المطبخ (KDS)، لوحة الإدارة، وواجهة العميل</li>
+        <li>تطبيق نظام RBAC للتحكم في الصلاحيات مع مصادقة JWT عبر Passport.js لتأمين وصول المستخدمين المتعددين</li>
+        <li>دمج تحديثات الطلبات اللحظية عبر Socket.IO ومعالجة المدفوعات الإلكترونية</li>
+        <li>تحزيم المنظومة الكاملة (Frontend + Backend + Database) باستخدام Docker Compose للنشر السلس</li>
+      </ul>
+    </div>
+
+    <!-- Mataam Pro -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>Mataam Pro — تطبيق إدارة مطعم (PWA)</h3>
+          <span class="type">Frontend · PWA</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> React · Vite · TypeScript · Tailwind CSS · React Router · Radix UI · React Hook Form · Service Worker</div>
+      <ul>
+        <li>تطوير تطبيق ويب تقدمي (PWA) لإدارة طلبات المطعم وعملياته، يعمل بشكل كامل أونلاين وأوفلاين</li>
+        <li>بناء مكونات واجهة مستخدم قابلة لإعادة الاستخدام بـ Radix UI وإدارة النماذج المعقدة بـ React Hook Form</li>
+      </ul>
+    </div>
+
+    <!-- CYBRD -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>C¥BRD — واجهة متجر Cyberpunk والباك إند</h3>
+          <span class="type">Full Stack · تجارة إلكترونية</span>
+        </div>
+        <span class="date">2024 – 2025</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> React · Vite · TypeScript · Framer Motion · React Three Fiber · Node.js · Express · Prisma · Stripe · Swagger</div>
+      <ul>
+        <li>إنشاء واجهة متجر بتصميم Cyberpunk مع عناصر ثلاثية الأبعاد تفاعلية باستخدام React Three Fiber و Drei</li>
+        <li>بناء باك إند آمن بـ Express/Node.js مع Prisma ORM ومدفوعات Stripe وتوثيق Swagger كامل</li>
+        <li>تطبيق انيميشن وانتقالات متقدمة بـ Framer Motion لتجربة بصرية راقية</li>
+      </ul>
+    </div>
+
+    <!-- CFO -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>موقع خدمات CFO المالية</h3>
+          <span class="type">Full Stack · ثنائي اللغة</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> Next.js · TypeScript · Tailwind CSS · Zod · Next API Routes · Nodemailer/SMTP · WhatsApp Cloud API · Rate Limiting</div>
+      <ul>
+        <li>بناء موقع بورتفوليو وخدمات مالية ثنائي اللغة (عربي/إنجليزي) مع دعم كامل للـ i18n</li>
+        <li>تنفيذ نموذج طلب خدمة مع إرسال تلقائي عبر البريد الإلكتروني (SMTP) وواتساب (WhatsApp Cloud API)</li>
+        <li>إضافة Rate Limiting والتحقق من المدخلات بـ Zod لحماية مسارات الـ API</li>
+      </ul>
+    </div>
+
+    <!-- Supermarket -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>نظام إدارة السوبرماركت المصري</h3>
+          <span class="type">Full Stack · محلّي</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> React · TypeScript · Vite · Node.js · Express · i18next · Zod · Docker · Docker Compose · PostgreSQL · Redis · JWT</div>
+      <ul>
+        <li>تطوير منصة شاملة تغطي المخزون ونقطة البيع وإدارة العملاء والموردين والتقارير</li>
+        <li>تطبيق واجهة عربية كاملة ودعم اللهجة المصرية عبر i18next</li>
+        <li>تصميم معماري بـ RBAC وتحزيم بـ Docker Compose مع PostgreSQL وRedis</li>
+      </ul>
+    </div>
+
+    <!-- Backend Pro -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>Backend Pro — تطبيق موبايل تعليمي</h3>
+          <span class="type">موبايل · React Native</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> React Native · Expo · TypeScript · Expo Router · NativeWind · Zustand · AsyncStorage · Expo Notifications · Reanimated</div>
+      <ul>
+        <li>بناء تطبيق موبايل تعليمي متعدد المنصات لمهندسي الباك إند مع دروس وتتبع تقدم وسلسلة يومية (Streak)</li>
+        <li>تطبيق إشعارات يومية عبر Expo Notifications وانيميشن سلس باستخدام Reanimated</li>
+      </ul>
+    </div>
+
+    <!-- NutriCare -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>NutriCare / LiteBite — باك إند تطبيق تغذية ذكية</h3>
+          <span class="type">Backend · REST API</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> Node.js · Express · MySQL 8 · Sequelize · JWT · Bcrypt · Helmet · CORS · Express Rate Limit</div>
+      <ul>
+        <li>تصميم وبناء REST API لتطبيق توصيات وجبات ذكي مع تسجيل المستخدمين وإدارة البروفايل وخطط الوجبات</li>
+        <li>تأمين جميع الـ Endpoints بـ JWT وBcrypt وحماية Helmet وRate Limiting</li>
+      </ul>
+    </div>
+
+    <!-- Portfolio -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>البورتفوليو الشخصي التفاعلي</h3>
+          <span class="type">Frontend · ثلاثي الأبعاد</span>
+        </div>
+        <span class="date">2024</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> TypeScript · Three.js · HTML · CSS</div>
+      <ul>
+        <li>تطوير موقع بورتفوليو شخصي بعناصر ثلاثية الأبعاد تفاعلية وتأثيرات حركة باستخدام Three.js</li>
+      </ul>
+    </div>
+
+    <!-- Charity -->
+    <div class="project">
+      <div class="project-header">
+        <div class="right">
+          <h3>نظام إدارة الجمعيات الخيرية</h3>
+          <span class="type">أكاديمي · Full Stack</span>
+        </div>
+        <span class="date">2023</span>
+      </div>
+      <div class="tech-line"><strong>التقنيات:</strong> PHP · HTML · CSS · MySQL (mysqli)</div>
+      <ul>
+        <li>بناء منصة لإدارة التبرعات والفعاليات والمتطوعين والتقارير كمشروع أكاديمي مُقيَّم</li>
+        <li>إعداد توثيق تقني شامل (SRS) كجزء من متطلبات التسليم</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-title">التعليم</div>
+
+    <div class="edu-item">
+      <div class="edu-header">
+        <h3>بكالوريوس علوم الحاسب — مرتبة ثالثة مع مرتبة الشرف</h3>
+        <span class="date">يناير 2026</span>
+      </div>
+      <div class="school">جامعة غرينتش، لندن (بالتعاون مع جامعة MSA، مصر)</div>
+      <div class="detail">برنامج مزدوج — شهادة بريطانية معترف بها دولياً</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-header">
+        <h3>بكالوريوس علوم الحاسب الآلي</h3>
+        <span class="date">فبراير 2026</span>
+      </div>
+      <div class="school">جامعة MSA — جامعة أكتوبر للعلوم الحديثة والآداب، مصر</div>
+      <div class="detail">المعدل التراكمي: 2.08 / 4  ·  تقدير امتياز في مشروع التخرج</div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div class="section">
+    <div class="section-title">الشهادات والدورات</div>
+
+    <div class="cert-item">
+      <div class="cert-right">
+        <strong>HCIA-Security V4.0 — شهادة حضور (45 ساعة)</strong>
+        <span class="issuer">Huawei / ICT Talent Bank</span>
+      </div>
+      <span class="date">يوليو 2024</span>
+    </div>
+
+    <div class="cert-item">
+      <div class="cert-right">
+        <strong>مقدمة إلى قاعدة بيانات MongoDB</strong>
+        <span class="issuer">منصة مهارة-تك (ITI)</span>
+      </div>
+      <span class="date">ديسمبر 2023</span>
+    </div>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="section">
+    <div class="section-title">اللغات</div>
+    <div class="lang-row">
+      <div class="lang-item"><strong>العربية</strong> <span>— اللغة الأم</span></div>
+      <div class="lang-item"><strong>الإنجليزية</strong> <span>— جيد جداً (كفاءة مهنية)</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    الكود المصدري لجميع المشاريع متاح على GitHub · الشهادات الأكاديمية والمراجع متاحة عند الطلب
+  </div>
+
+</div>
+</body>
+</html>

@@ -18,6 +18,10 @@ export const profile = {
   github: "https://github.com/29SalahMo",
   linkedin: "https://www.linkedin.com/in/salahaldin291/",
   graduation: "BSc Computer Science - University of Greenwich / MSA (2026)",
+  cv: {
+    en: "/cv-en.pdf",
+    ar: "/cv-ar.html",
+  },
   stats: [
     { label: "Projects shipped", value: "12+" },
     { label: "Years building", value: "3+" },

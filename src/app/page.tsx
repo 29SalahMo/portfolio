@@ -5,7 +5,6 @@ import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";
 import { Journey } from "@/components/sections/Journey";
 import { Contact } from "@/components/sections/Contact";
-import { Terminal } from "@/components/sections/Terminal";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <Skills />
       <Projects />
       <Journey />
-      <Terminal />
       <Contact />
       <footer className="section-pad border-t border-white/10 py-10 pb-[calc(2.5rem+env(safe-area-inset-bottom))] text-center text-sm text-white/45">
         <p>
