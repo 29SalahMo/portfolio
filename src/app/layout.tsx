@@ -22,7 +22,8 @@ const siteUrl =
       ? `https://${process.env.VERCEL_URL}`
       : PRODUCTION_URL;
 
-const ogImageUrl = `${siteUrl}/og-social.png`;
+// Bump ?v= when replacing the share preview image (clears WhatsApp/FB cache)
+const ogImageUrl = `${siteUrl}/og-social.png?v=2`;
 
 const siteDescription =
   "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.";
