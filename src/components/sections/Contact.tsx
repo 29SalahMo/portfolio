@@ -53,7 +53,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's build something elite"
-          description="Fill the form and tap Send  WhatsApp and your email app open with your message ready."
+          description="Fill the form and tap Send. WhatsApp and your email app open with your message ready."
         />
 
         <div className="mt-10 grid gap-6 lg:mt-14 lg:grid-cols-2 lg:gap-8">
@@ -175,12 +175,11 @@ export function Contact() {
                 >
                   <p className="font-medium">Ready to send</p>
                   <p className="text-white/70">
-                    1. In WhatsApp, tap <strong>Send</strong> to deliver your
-                    message to {profile.phoneDisplay}.
+                    1. In WhatsApp, tap Send to deliver your message to{" "}
+                    {profile.phoneDisplay}.
                   </p>
                   <p className="text-white/70">
-                    2. In your email app, tap <strong>Send</strong> to email
-                    Salahaldin.
+                    2. In your email app, tap Send to email Salahaldin.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
                     <a
