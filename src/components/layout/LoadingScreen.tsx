@@ -3,22 +3,53 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+function shouldSkipLoader(): boolean {
+  if (typeof window === "undefined") return true;
+
+  const ua = navigator.userAgent.toLowerCase();
+  const isBot =
+    /bot|crawl|spider|preview|vercel|facebookexternalhit|twitterbot|linkedinbot|whatsapp|slackbot|discordbot|telegrambot|googlebot|bingbot/i.test(
+      ua,
+    );
+
+  if (isBot) return true;
+
+  try {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return true;
+    }
+  } catch {
+    /* ignore */
+  }
+
+  return false;
+}
+
 export function LoadingScreen() {
-  const [done, setDone] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [done, setDone] = useState(true);
 
   useEffect(() => {
-    let frame = 0;
+    if (shouldSkipLoader()) {
+      setDone(true);
+      return;
+    }
+
+    setDone(false);
+    let progress = 0;
     const id = window.setInterval(() => {
-      frame += 1;
-      setProgress((p) => Math.min(100, p + 8 + frame * 0.5));
-      if (frame > 12) {
+      progress = Math.min(100, progress + 18);
+      if (progress >= 100) {
         window.clearInterval(id);
-        setProgress(100);
-        window.setTimeout(() => setDone(true), 400);
+        window.setTimeout(() => setDone(true), 200);
       }
-    }, 80);
-    return () => window.clearInterval(id);
+    }, 50);
+
+    const safety = window.setTimeout(() => setDone(true), 900);
+
+    return () => {
+      window.clearInterval(id);
+      window.clearTimeout(safety);
+    };
   }, []);
 
   return (
@@ -28,22 +59,20 @@ export function LoadingScreen() {
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          aria-hidden
         >
           <p className="mb-6 text-xs uppercase tracking-[0.5em] text-cyan-300/80">
-            Initializing experience
+            Loading
           </p>
-          <h1 className="mb-8 bg-gradient-to-r from-white via-cyan-100 to-violet-200 bg-clip-text text-3xl font-semibold text-transparent md:text-5xl">
-            Salahaldin Mohamed
-          </h1>
-          <div className="h-1 w-64 overflow-hidden rounded-full bg-white/10">
+          <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
             <motion.div
               className="h-full bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-500"
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             />
           </div>
-          <p className="mt-4 font-mono text-sm text-white/50">{progress}%</p>
         </motion.div>
       ) : null}
     </AnimatePresence>
