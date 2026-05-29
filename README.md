@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Salahaldin Mohamed - Cinematic 3D Portfolio
 
-## Getting Started
+Cyberpunk-luxury portfolio built with **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **Framer Motion**, **GSAP + ScrollTrigger**, **React Three Fiber**, **Drei**, and **Lenis**.
 
-First, run the development server:
+## Run locally
 
 ```bash
+cd portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/              # Next.js App Router (layout, page, providers, globals)
+  components/
+    layout/         # Nav, loader, cursor, scroll progress
+    sections/       # Hero, About, Skills, Projects, Journey, Contact, Terminal
+    three/          # R3F scenes (hero, skills galaxy, contact sphere)
+    ui/             # Glass cards, magnetic buttons, section headings
+  data/             # Profile, projects, skills, timeline (edit here)
+  hooks/            # Magnetic hover, GSAP reveals, reduced motion
+  lib/              # Utilities
+```
 
-## Learn More
+### Motion system
 
-To learn more about Next.js, take a look at the following resources:
+- **Lenis** (`providers.tsx`) handles smooth scrolling; GSAP ticker drives Lenis RAF.
+- **ScrollTrigger** powers horizontal project pinning and section reveals.
+- **Framer Motion** handles loader, micro-interactions, and UI transitions.
+- **R3F** scenes are dynamically imported (`ssr: false`) for performance.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Performance
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 3D canvases use capped `dpr` and lazy dynamic imports.
+- `prefers-reduced-motion` disables custom cursor and lowers 3D quality.
+- Edit project data in `src/data/projects.ts` (add `live` URLs when ready).
 
-## Deploy on Vercel
+## Deploy (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push `portfolio/` to GitHub.
+2. Import on Vercel, framework preset: Next.js.
+3. Set env if needed; default build: `npm run build`.
+4. Update `metadataBase` in `src/app/layout.tsx` to your real domain.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lighthouse tips
+
+- Add `public/og.png` (1200x630) and reference in `layout.tsx`.
+- Compress any future video previews for project cards.
+- Keep hero 3D particle count lower on mobile if needed.
+
+## Still to polish (optional)
+
+- Real project demo videos on hover
+- Form backend (Resend / Email API route)
+- Sound-reactive toggle
+- Behance/Dribbble links
+- Custom domain + OG image assets
+- Easter eggs and scroll-section background shifts

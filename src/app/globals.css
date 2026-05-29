@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #05060a;
+  --fg: #e8ecff;
+  --muted: rgba(232, 236, 255, 0.72);
+
+  --neon-cyan: #22d3ee;
+  --electric-blue: #3b82f6;
+  --deep-purple: #6d28d9;
+  --soft-pink: #fb7185;
+
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: radial-gradient(
+      1200px 800px at 70% 10%,
+      rgba(109, 40, 217, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 600px at 30% 20%,
+      rgba(34, 211, 238, 0.12),
+      transparent 52%
+    ),
+    radial-gradient(
+      800px 600px at 80% 70%,
+      rgba(251, 113, 133, 0.10),
+      transparent 52%
+    ),
+    var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  text-rendering: geometricPrecision;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Horizontal + safe-area padding for sections (phones, iPad notches) */
+.section-pad {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 640px) {
+  .section-pad {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+}
+
+/* Custom cursor only on desktop with fine pointer */
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  body,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+
+/* Premium glass + neon utilities (used across sections) */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.neon-border {
+  position: relative;
+}
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.8),
+    rgba(59, 130, 246, 0.45),
+    rgba(109, 40, 217, 0.55),
+    rgba(251, 113, 133, 0.35)
+  );
+  filter: blur(10px);
+  opacity: 0.45;
+  z-index: -1;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
 }
