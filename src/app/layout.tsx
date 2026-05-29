@@ -13,15 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const PRODUCTION_URL = "https://salahaldin-portfolio.vercel.app/";
+const PRODUCTION_URL = "https://salahaldin-portfolio.vercel.app";
 
 const siteUrl =
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : PRODUCTION_URL);
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : PRODUCTION_URL;
 
-const baseUrl = siteUrl.startsWith("http") ? siteUrl : `https://${siteUrl}`;
+const ogImageUrl = `${siteUrl}/og-social.png`;
 
 const siteDescription =
   "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.";
@@ -40,20 +41,21 @@ export const metadata: Metadata = {
     template: "%s | Salahaldin Mohamed",
   },
   description: siteDescription,
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:
       "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
     type: "website",
-    url: baseUrl,
+    url: siteUrl,
     siteName: "Salahaldin Mohamed Portfolio",
     locale: "en_US",
     images: [
       {
-        url: "/og.png",
-        width: 1024,
-        height: 771,
+        url: ogImageUrl,
+        secureUrl: ogImageUrl,
+        width: 1200,
+        height: 630,
         alt: "Salahaldin Mohamed - Full Stack and AI Developer portfolio",
         type: "image/png",
       },
@@ -64,7 +66,7 @@ export const metadata: Metadata = {
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:
       "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
-    images: ["/og.png"],
+    images: [ogImageUrl],
   },
   robots: {
     index: true,

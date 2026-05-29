@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/profile.png" },
       { pathname: "/og.png" },
+      { pathname: "/og-social.png" },
     ],
   },
 };
