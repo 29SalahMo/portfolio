@@ -7,12 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { profile } from "@/data/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import {
   buildDefaultWhatsAppGreeting,
-  buildMailtoUrl,
   buildWhatsAppUrl,
+  sendViaWhatsAppAndEmail,
 } from "@/lib/contact";
 
 const ContactSphere = dynamic(
@@ -24,30 +23,28 @@ export function Contact() {
   const ref = useGsapReveal<HTMLElement>();
   const [focused, setFocused] = useState(false);
   const [sent, setSent] = useState(false);
-  const [sendVia, setSendVia] = useState<"email" | "whatsapp">("whatsapp");
+  const [sending, setSending] = useState(false);
 
   const whatsappQuickUrl = buildWhatsAppUrl(buildDefaultWhatsAppGreeting());
   const emailQuickUrl = `mailto:${profile.contactEmail}?subject=${encodeURIComponent("Hello from your portfolio")}&body=${encodeURIComponent("Hi Salahaldin,\n\nI saw your portfolio and would like to connect.\n\n")}`;
+  const telUrl = `tel:${profile.phone.replace(/\s/g, "")}`;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSending(true);
+
     const form = e.currentTarget;
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
     const message = String(data.get("message") || "").trim();
 
-    const fullMessage = `Hello Salahaldin, I'm ${name}.\n\n${message}\n\nReply-to email: ${email}`;
-
-    if (sendVia === "whatsapp") {
-      window.open(buildWhatsAppUrl(fullMessage), "_blank", "noopener,noreferrer");
-    } else {
-      window.location.href = buildMailtoUrl({ name, email, message });
-    }
+    sendViaWhatsAppAndEmail({ name, email, message });
 
     setSent(true);
+    setSending(false);
     form.reset();
-    window.setTimeout(() => setSent(false), 5000);
+    window.setTimeout(() => setSent(false), 6000);
   };
 
   return (
@@ -56,7 +53,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's build something elite"
-          description="Message me on WhatsApp or email - one tap to open a pre-filled conversation."
+          description="Fill the form and tap Send  WhatsApp and your email app open with your message ready."
         />
 
         <div className="mt-10 grid gap-6 lg:mt-14 lg:grid-cols-2 lg:gap-8">
@@ -81,7 +78,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="glass flex items-center gap-3 rounded-2xl border border-green-500/30 bg-green-500/10 p-4 transition-colors hover:bg-green-500/15"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 text-lg">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-lg">
                   WA
                 </span>
                 <div className="min-w-0 text-left">
@@ -95,7 +92,7 @@ export function Contact() {
                 href={emailQuickUrl}
                 className="glass flex items-center gap-3 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-4 transition-colors hover:bg-cyan-500/15"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/20 text-lg">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-lg">
                   @
                 </span>
                 <div className="min-w-0 text-left">
@@ -105,31 +102,6 @@ export function Contact() {
                   </p>
                 </div>
               </a>
-            </div>
-
-            <div className="mb-4 flex gap-2">
-              <button
-                type="button"
-                onClick={() => setSendVia("whatsapp")}
-                className={`flex-1 rounded-full px-3 py-2 text-xs transition-colors ${
-                  sendVia === "whatsapp"
-                    ? "bg-green-500/25 text-green-100"
-                    : "bg-white/5 text-white/60"
-                }`}
-              >
-                Send via WhatsApp
-              </button>
-              <button
-                type="button"
-                onClick={() => setSendVia("email")}
-                className={`flex-1 rounded-full px-3 py-2 text-xs transition-colors ${
-                  sendVia === "email"
-                    ? "bg-cyan-400/25 text-cyan-100"
-                    : "bg-white/5 text-white/60"
-                }`}
-              >
-                Send via Email
-              </button>
             </div>
 
             <form className="space-y-4" onSubmit={onSubmit}>
@@ -179,23 +151,54 @@ export function Contact() {
                   placeholder="Tell me about your project..."
                 />
               </div>
-              <MagneticButton type="submit">
-                {sendVia === "whatsapp" ? "Open WhatsApp" : "Open Email App"}
-              </MagneticButton>
+
+              <button
+                type="submit"
+                disabled={sending}
+                className="relative w-full overflow-hidden rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-600 px-6 py-4 text-base font-semibold text-black shadow-[0_0_30px_rgba(34,211,238,0.35)] transition-all hover:brightness-110 disabled:opacity-60"
+              >
+                {sending ? "Sending..." : "Send Message"}
+              </button>
+              <p className="text-center text-xs text-white/45">
+                Opens WhatsApp ({profile.phoneDisplay}) and your email app to{" "}
+                {profile.contactEmail}
+              </p>
             </form>
 
             <AnimatePresence>
               {sent ? (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="mt-4 text-sm text-cyan-200"
+                  className="mt-4 space-y-2 rounded-xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-100"
                 >
-                  {sendVia === "whatsapp"
-                    ? "WhatsApp opened with your message - tap Send there to deliver."
-                    : "Email app opened - review and send your message."}
-                </motion.p>
+                  <p className="font-medium">Ready to send</p>
+                  <p className="text-white/70">
+                    1. In WhatsApp, tap <strong>Send</strong> to deliver your
+                    message to {profile.phoneDisplay}.
+                  </p>
+                  <p className="text-white/70">
+                    2. In your email app, tap <strong>Send</strong> to email
+                    Salahaldin.
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <a
+                      href={whatsappQuickUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-green-500/20 px-3 py-1 text-xs text-green-200"
+                    >
+                      Open WhatsApp again
+                    </a>
+                    <a
+                      href={emailQuickUrl}
+                      className="rounded-full bg-cyan-500/20 px-3 py-1 text-xs text-cyan-200"
+                    >
+                      Open email again
+                    </a>
+                  </div>
+                </motion.div>
               ) : null}
             </AnimatePresence>
 
@@ -223,6 +226,12 @@ export function Contact() {
                 className="glass rounded-full px-4 py-2 text-xs text-white/75 hover:text-green-200"
               >
                 WhatsApp
+              </a>
+              <a
+                href={telUrl}
+                className="glass rounded-full px-4 py-2 text-xs text-white/75 hover:text-cyan-200"
+              >
+                Call
               </a>
               <a
                 href={emailQuickUrl}
