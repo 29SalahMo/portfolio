@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { SiteAnalytics } from "@/components/layout/SiteAnalytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -109,6 +110,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-[100dvh] flex flex-col bg-black text-white selection:bg-cyan-300/20 selection:text-cyan-100">
         <Providers>{children}</Providers>
+        <SiteAnalytics />
       </body>
     </html>
   );

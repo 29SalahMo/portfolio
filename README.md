@@ -58,6 +58,24 @@ src/
 
 Every push to `main` will auto-redeploy.
 
+## Contact form (email to your inbox)
+
+1. Copy `.env.example` to `.env.local` for local testing.
+2. Sign up at [Web3Forms](https://web3forms.com) (free) and copy your **Access Key**.
+3. In **Vercel → Project → Settings → Environment Variables**, add:
+   - `WEB3FORMS_ACCESS_KEY` = your key
+   - `CONTACT_TO_EMAIL` = `salahmohamed2912004@gmail.com`
+4. Redeploy. The contact form will email you directly.
+
+Optional: use [Resend](https://resend.com) instead with `RESEND_API_KEY` and `RESEND_FROM_EMAIL`.
+
+## Analytics
+
+**Vercel Analytics** and **Speed Insights** are enabled. After deploy:
+
+1. Vercel dashboard → your project → **Analytics** tab
+2. Enable Web Analytics if prompted (free on Hobby plan)
+
 ## Lighthouse tips
 
 - Add `public/og.png` (1200x630) and reference in `layout.tsx`.
@@ -67,7 +85,6 @@ Every push to `main` will auto-redeploy.
 ## Still to polish (optional)
 
 - Real project demo videos on hover
-- Form backend (Resend / Email API route)
 - Sound-reactive toggle
 - Behance/Dribbble links
 - Custom domain + OG image assets
