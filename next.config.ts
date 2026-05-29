@@ -6,9 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     localPatterns: [
-      {
-        pathname: "/profile.png",
-      },
+      { pathname: "/profile.png" },
+      { pathname: "/og.png" },
     ],
   },
 };

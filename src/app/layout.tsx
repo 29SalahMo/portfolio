@@ -13,11 +13,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const PRODUCTION_URL = "https://portfolio-beryl-sigma-83.vercel.app";
+
 const siteUrl =
   process.env.VERCEL_PROJECT_PRODUCTION_URL ??
   (process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
-    : "https://portfolio-29salahmo.vercel.app");
+    : PRODUCTION_URL);
+
+const baseUrl = siteUrl.startsWith("http") ? siteUrl : `https://${siteUrl}`;
+
+const siteDescription =
+  "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -32,14 +39,32 @@ export const metadata: Metadata = {
     default: "Salahaldin Mohamed | Full Stack + AI Developer",
     template: "%s | Salahaldin Mohamed",
   },
-  description:
-    "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.",
-  metadataBase: new URL(siteUrl.startsWith("http") ? siteUrl : `https://${siteUrl}`),
+  description: siteDescription,
+  metadataBase: new URL(baseUrl),
   openGraph: {
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:
       "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
     type: "website",
+    url: baseUrl,
+    siteName: "Salahaldin Mohamed Portfolio",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og.png",
+        width: 1024,
+        height: 771,
+        alt: "Salahaldin Mohamed - Full Stack and AI Developer portfolio",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Salahaldin Mohamed | Full Stack + AI Developer",
+    description:
+      "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
+    images: ["/og.png"],
   },
   robots: {
     index: true,
