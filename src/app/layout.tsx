@@ -13,17 +13,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const PRODUCTION_URL = "https://salahaldin-portfolio.vercel.app";
+const SITE_URL = "https://salahaldin-portfolio.vercel.app";
 
-const siteUrl =
-  process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : PRODUCTION_URL;
-
-// Bump ?v= when replacing the share preview image (clears WhatsApp/FB cache)
-const ogImageUrl = `${siteUrl}/og-social.png?v=2`;
+/** Static JPEG in /public — works reliably on WhatsApp, iMessage, LinkedIn */
+const OG_IMAGE = `${SITE_URL}/og.jpg`;
 
 const siteDescription =
   "Cyberpunk-luxury portfolio of Salahaldin Mohamed - Computer Science Engineer, Full Stack Developer, AI Developer, and Creative Technologist.";
@@ -37,28 +30,31 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Salahaldin Mohamed | Full Stack + AI Developer",
     template: "%s | Salahaldin Mohamed",
   },
   description: siteDescription,
-  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: "Salahaldin Mohamed Portfolio",
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:
       "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
-    type: "website",
-    url: siteUrl,
-    siteName: "Salahaldin Mohamed Portfolio",
-    locale: "en_US",
     images: [
       {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
+        url: OG_IMAGE,
+        secureUrl: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Salahaldin Mohamed - Full Stack and AI Developer portfolio",
-        type: "image/png",
+        type: "image/jpeg",
       },
     ],
   },
@@ -67,11 +63,29 @@ export const metadata: Metadata = {
     title: "Salahaldin Mohamed | Full Stack + AI Developer",
     description:
       "A cinematic, interactive portfolio with 3D, smooth scrolling, and premium motion design.",
-    images: [ogImageUrl],
+    images: {
+      url: OG_IMAGE,
+      width: 1200,
+      height: 630,
+      alt: "Salahaldin Mohamed portfolio preview",
+    },
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  other: {
+    "og:image": OG_IMAGE,
+    "og:image:url": OG_IMAGE,
+    "og:image:secure_url": OG_IMAGE,
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:type": "image/jpeg",
+    "og:image:alt": "Salahaldin Mohamed portfolio hero preview",
   },
 };
 
@@ -85,6 +99,14 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="image_src" href={OG_IMAGE} />
+        <meta property="og:image" content={OG_IMAGE} />
+        <meta property="og:image:secure_url" content={OG_IMAGE} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </head>
       <body className="min-h-[100dvh] flex flex-col bg-black text-white selection:bg-cyan-300/20 selection:text-cyan-100">
         <Providers>{children}</Providers>
       </body>
