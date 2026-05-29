@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const PRODUCTION_URL = "https://portfolio-beryl-sigma-83.vercel.app";
+const PRODUCTION_URL = "https://salahaldin-portfolio.vercel.app/";
 
 const siteUrl =
   process.env.VERCEL_PROJECT_PRODUCTION_URL ??
