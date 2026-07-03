@@ -14,11 +14,32 @@ export const timeline: TimelineEvent[] = [
       "Distinction project: HuggingFace summarization, semantic ranking, Flask API, HCI-focused bilingual UI.",
   },
   {
+    year: "2026",
+    title: "AI Search & ML Classifier",
+    org: "Independent",
+    description:
+      "Streamlit app with Uniform Cost Search, Greedy Search, and Decision Tree classification on the Iris dataset.",
+  },
+  {
     year: "2025-2026",
     title: "A&A Legal Advisors Website",
     org: "Independent",
     description:
       "Cinematic law firm site with GSAP scroll, R3F accents, practice-area showcases, and Supabase-backed flows.",
+  },
+  {
+    year: "2026",
+    title: "Universal Translator (Desktop)",
+    org: "Independent",
+    description:
+      "Tkinter translator with RTL Arabic UI, deep-translator integration, and PyInstaller Windows packaging.",
+  },
+  {
+    year: "2026",
+    title: "Eldinamo Gaming Link Hub",
+    org: "Independent",
+    description:
+      "Premium creator link hub with electric blue storm branding, multi-platform social links, and Streamlabs donations.",
   },
   {
     year: "2024-2025",

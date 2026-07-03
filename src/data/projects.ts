@@ -3,6 +3,7 @@ export type ProjectCategory =
   | "SaaS Platforms"
   | "Web Applications"
   | "Mobile Apps"
+  | "Desktop Applications"
   | "Experimental Creative Coding";
 
 export type Project = {
@@ -23,6 +24,7 @@ export const projectCategories: ProjectCategory[] = [
   "SaaS Platforms",
   "Web Applications",
   "Mobile Apps",
+  "Desktop Applications",
   "Experimental Creative Coding",
 ];
 
@@ -43,6 +45,23 @@ export const projects: Project[] = [
     github: "https://github.com/29SalahMo",
     live: "https://web-automated-summarizer-for-articles-l4xh9rgfctv8doirksivxn.streamlit.app/",
     accent: "from-violet-500/40 via-cyan-400/30 to-blue-500/20",
+  },
+  {
+    id: "ai-search-ml",
+    title: "AI Search & ML Classifier",
+    category: "AI Projects",
+    year: "2026",
+    description:
+      "Interactive Streamlit app demonstrating Uniform Cost Search, Greedy Search, and Decision Tree classification on the Iris dataset.",
+    highlights: [
+      "Uniform Cost + Greedy graph pathfinding",
+      "Custom graph builder with default presets",
+      "Decision Tree classifier with metrics and visualization",
+    ],
+    stack: ["Python", "Streamlit", "scikit-learn", "NumPy"],
+    github: "https://github.com/29SalahMo/ai-project",
+    live: "https://ai-project-89gdtrendkugvwmkxn9tsd.streamlit.app/",
+    accent: "from-violet-600/35 via-purple-500/25 to-fuchsia-400/20",
   },
   {
     id: "aa-legal-advisors",
@@ -69,6 +88,40 @@ export const projects: Project[] = [
     github: "https://github.com/29SalahMo/legal-office-transformation",
     live: "https://legal-office-transformation.vercel.app/",
     accent: "from-amber-500/30 via-yellow-600/20 to-stone-500/25",
+  },
+  {
+    id: "universal-translator",
+    title: "Universal Translator",
+    category: "Desktop Applications",
+    year: "2026",
+    description:
+      "Lightweight Python desktop translator with Arabic/RTL support, language swapping, and Google Translate via deep-translator.",
+    highlights: [
+      "Arabic-friendly UI with RTL auto-alignment",
+      "Keyboard shortcuts (Ctrl+Enter, Ctrl+L)",
+      "Single-file Windows .exe via PyInstaller",
+    ],
+    stack: ["Python", "Tkinter", "deep-translator", "PyInstaller"],
+    github: "https://github.com/29SalahMo/Translator-app",
+    live: "https://29salahmo.github.io/Translator-app/",
+    accent: "from-teal-500/30 via-emerald-400/25 to-cyan-500/20",
+  },
+  {
+    id: "eldinamo-link-hub",
+    title: "Eldinamo Gaming Link Hub",
+    category: "Web Applications",
+    year: "2026",
+    description:
+      "Premium gaming creator link hub with electric blue storm branding — TikTok, Kick, Instagram, Discord, and Streamlabs in one cinematic page.",
+    highlights: [
+      "Creator-first link hub with storm brand identity",
+      "Multi-platform social and community links",
+      "Streamlabs donation integration",
+    ],
+    stack: ["React", "Vite", "TypeScript", "Tailwind", "Framer Motion"],
+    github: "https://github.com/29SalahMo",
+    live: "https://eldinamogaming-linktree.vercel.app/",
+    accent: "from-cyan-400/35 via-blue-500/30 to-indigo-600/25",
   },
   {
     id: "cafes-system",
