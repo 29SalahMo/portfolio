@@ -14,6 +14,13 @@ export const timeline: TimelineEvent[] = [
       "Distinction project: HuggingFace summarization, semantic ranking, Flask API, HCI-focused bilingual UI.",
   },
   {
+    year: "2025-2026",
+    title: "A&A Legal Advisors Website",
+    org: "Independent",
+    description:
+      "Cinematic law firm site with GSAP scroll, R3F accents, practice-area showcases, and Supabase-backed flows.",
+  },
+  {
     year: "2024-2025",
     title: "Restaurant Management Platform",
     org: "Independent",

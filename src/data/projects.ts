@@ -45,6 +45,32 @@ export const projects: Project[] = [
     accent: "from-violet-500/40 via-cyan-400/30 to-blue-500/20",
   },
   {
+    id: "aa-legal-advisors",
+    title: "A&A Legal Advisors",
+    category: "Web Applications",
+    year: "2025-2026",
+    description:
+      "Premium boutique law firm site for Egypt's elite legal counsel — litigation, corporate M&A, and arbitration with cinematic UX.",
+    highlights: [
+      "GSAP + Lenis immersive scroll storytelling",
+      "Practice areas, case studies, and team profiles",
+      "Consultation flow with newsletter capture",
+    ],
+    stack: [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind",
+      "Framer Motion",
+      "GSAP",
+      "R3F",
+      "Supabase",
+    ],
+    github: "https://github.com/29SalahMo/legal-office-transformation",
+    live: "https://legal-office-transformation.vercel.app/",
+    accent: "from-amber-500/30 via-yellow-600/20 to-stone-500/25",
+  },
+  {
     id: "cafes-system",
     title: "Egyptian Restaurant Management",
     category: "SaaS Platforms",
