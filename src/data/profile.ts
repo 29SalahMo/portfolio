@@ -23,7 +23,7 @@ export const profile = {
     ar: "/cv-ar.html",
   },
   stats: [
-    { label: "Projects shipped", value: "15+" },
+    { label: "Projects shipped", value: "16+" },
     { label: "Years building", value: "3+" },
     { label: "Stack focus", value: "Full Stack + AI" },
     { label: "Final project", value: "Distinction" },

@@ -42,6 +42,13 @@ export const timeline: TimelineEvent[] = [
       "Premium creator link hub with electric blue storm branding, multi-platform social links, and Streamlabs donations.",
   },
   {
+    year: "2025",
+    title: "Movra Luxury Store",
+    org: "Independent",
+    description:
+      "Luxury perfume and cosmetics e-commerce with cart, checkout, auth flows, and collection-based shopping experience.",
+  },
+  {
     year: "2024-2025",
     title: "Restaurant Management Platform",
     org: "Independent",

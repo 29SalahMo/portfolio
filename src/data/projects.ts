@@ -124,6 +124,23 @@ export const projects: Project[] = [
     accent: "from-cyan-400/35 via-blue-500/30 to-indigo-600/25",
   },
   {
+    id: "movra-store",
+    title: "Movra Luxury Store",
+    category: "Web Applications",
+    year: "2025",
+    description:
+      "Luxury perfumes and cosmetics e-commerce with cart, checkout, auth flows, and premium brand storytelling — crafted in Egypt.",
+    highlights: [
+      "Full shopping cart and secure checkout flow",
+      "Login, signup, and password reset modals",
+      "Collections for Him, Her, and Gift Sets",
+    ],
+    stack: ["JavaScript", "HTML", "CSS", "GitHub Pages"],
+    github: "https://github.com/29SalahMo/MovraStore",
+    live: "https://29salahmo.github.io/MovraStore/",
+    accent: "from-rose-400/30 via-pink-500/25 to-amber-400/20",
+  },
+  {
     id: "cafes-system",
     title: "Egyptian Restaurant Management",
     category: "SaaS Platforms",
