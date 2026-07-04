@@ -90,6 +90,23 @@ export const projects: Project[] = [
     accent: "from-amber-500/30 via-yellow-600/20 to-stone-500/25",
   },
   {
+    id: "gym-buddy",
+    title: "Gym Buddy",
+    category: "Web Applications",
+    year: "2026",
+    description:
+      "Interactive gym website featuring user authentication, membership registration, and BMI-based personalized workout & diet plans.",
+    highlights: [
+      "Secure SQLite-powered login and sign-up flows",
+      "Dynamic BMI-based training and diet recommendation engine",
+      "Clean, modern UI/UX design with custom CSS animations",
+    ],
+    stack: ["Node.js", "Express", "SQLite", "JavaScript", "HTML", "CSS"],
+    github: "https://github.com/29SalahMo/Gym",
+    live: "https://gym-nu-rouge.vercel.app/",
+    accent: "from-orange-500/35 via-amber-500/25 to-yellow-400/20",
+  },
+  {
     id: "universal-translator",
     title: "Universal Translator",
     category: "Desktop Applications",

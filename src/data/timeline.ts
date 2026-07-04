@@ -21,6 +21,13 @@ export const timeline: TimelineEvent[] = [
       "Streamlit app with Uniform Cost Search, Greedy Search, and Decision Tree classification on the Iris dataset.",
   },
   {
+    year: "2026",
+    title: "Gym Buddy Web App",
+    org: "Independent",
+    description:
+      "Interactive gym platform featuring SQLite-based membership registration, login, and dynamic BMI workout & diet generators.",
+  },
+  {
     year: "2025-2026",
     title: "A&A Legal Advisors Website",
     org: "Independent",
