@@ -107,14 +107,17 @@ export function Hero() {
           >
             CV (English)
           </MagneticButton>
-          <MagneticButton href={profile.cv.ar} variant="ghost" external>
+          <MagneticButton href={profile.cv.ar} external>
             CV (Arabic)
           </MagneticButton>
-          <MagneticButton href="#contact" variant="ghost">
-            Contact Me
-          </MagneticButton>
-          <MagneticButton href={profile.github} variant="ghost" external>
+          <MagneticButton href={profile.github} external>
             GitHub
+          </MagneticButton>
+          <MagneticButton href={profile.linkedin} external>
+            LinkedIn
+          </MagneticButton>
+          <MagneticButton href="#contact">
+            Contact Me
           </MagneticButton>
         </div>
 
