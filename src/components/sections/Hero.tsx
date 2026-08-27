@@ -51,12 +51,16 @@ export function Hero() {
       <HeroCanvas />
 
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-        <p
+        <div
           data-hero
-          className="mb-6 text-xs uppercase tracking-[0.35em] text-cyan-300/80 sm:tracking-[0.45em]"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-300 backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.25)]"
         >
-          Portfolio / 2026
-        </p>
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          Available for Full Stack & AI Engineering Roles (2026)
+        </div>
 
         <div data-hero className="mb-6">
           <ProfileAvatar size="lg" />
