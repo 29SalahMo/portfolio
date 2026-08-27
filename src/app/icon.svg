@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e111d"/>
+      <stop offset="50%" stop-color="#06070c"/>
+      <stop offset="100%" stop-color="#030407"/>
+    </linearGradient>
+
+    <!-- Border Neon Gradient -->
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="80%" stop-color="#6d28d9"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+
+    <!-- Monogram Text Gradient -->
+    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Cyan Accent Glow Gradient -->
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="dot-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur1"/>
+      <feGaussianBlur stdDeviation="20" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Ambient Glow Frame -->
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="none" stroke="url(#border-grad)" stroke-width="12" opacity="0.3" filter="url(#neon-glow)" />
+
+  <!-- Base Dark Glass Container -->
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="url(#bg-grad)" stroke="url(#border-grad)" stroke-width="10" />
+
+  <!-- Inner Cyber Grid / Geometric Hex Accents -->
+  <path d="M 120 40 L 392 40 L 472 120 L 472 392 L 392 472 L 120 472 L 40 392 L 40 120 Z" fill="none" stroke="#22d3ee" stroke-opacity="0.08" stroke-width="2" />
+  
+  <!-- Cyber Monogram Graphics: S M . -->
+  <g transform="translate(0, 0)">
+    <!-- Custom Cyber "S" Polygon Path -->
+    <path d="
+      M 215 175 
+      L 142 175 
+      C 125 175 115 186 115 204 
+      L 115 224 
+      C 115 242 125 252 142 252 
+      L 190 252 
+      C 215 252 225 264 225 288 
+      L 225 308 
+      C 225 330 210 342 185 342 
+      L 110 342
+      " 
+      fill="none" 
+      stroke="url(#text-grad)" 
+      stroke-width="34" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+
+    <!-- Custom Cyber "M" Polygon Path -->
+    <path d="
+      M 268 342 
+      L 268 175 
+      L 318 260 
+      L 368 175 
+      L 368 342
+      " 
+      fill="none" 
+      stroke="url(#text-grad)" 
+      stroke-width="34" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+
+    <!-- Glowing Cyber Accent Dot "." -->
+    <circle cx="414" cy="328" r="20" fill="url(#accent-grad)" filter="url(#dot-glow)" />
+    <circle cx="414" cy="328" r="10" fill="#ffffff" />
+  </g>
+</svg>
