@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Text } from "@react-three/drei";
+import { Billboard, OrbitControls, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { skills, type SkillCategory } from "@/data/skills";
 
@@ -19,49 +19,91 @@ function SkillNode({
   position,
   label,
   color,
+  isCategoryActive,
 }: {
   position: THREE.Vector3;
   label: string;
   color: string;
+  isCategoryActive: boolean;
 }) {
-  const ref = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const [hovered, setHovered] = useState(false);
+
+  const isActive = isCategoryActive || hovered;
+
   useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.position.y =
-      position.y + Math.sin(state.clock.elapsedTime + position.x) * 0.08;
+    if (!meshRef.current) return;
+    // Floating animation
+    meshRef.current.position.y =
+      position.y + Math.sin(state.clock.elapsedTime * 1.5 + position.x) * 0.08;
   });
 
   return (
     <group position={position}>
-      <mesh ref={ref}>
-        <sphereGeometry args={[0.12, 16, 16]} />
+      {/* Interactive Glowing Sphere */}
+      <mesh
+        ref={meshRef}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHovered(true);
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          setHovered(false);
+          document.body.style.cursor = "auto";
+        }}
+        scale={isActive ? 1.45 : 1}
+      >
+        <sphereGeometry args={[0.13, 24, 24]} />
         <meshStandardMaterial
           color={color}
           emissive={color}
-          emissiveIntensity={0.6}
+          emissiveIntensity={isActive ? 1.2 : 0.6}
+          roughness={0.2}
+          metalness={0.8}
         />
       </mesh>
-      <Text
-        position={[0, 0.28, 0]}
-        fontSize={0.11}
-        color="#e8ecff"
-        anchorX="center"
-        maxWidth={1.2}
-      >
-        {label}
-      </Text>
+
+      {/* Always Camera-Facing Billboard Text with Zero Reflection / Maximum Readability */}
+      <Billboard position={[0, 0.32, 0]} follow lockX={false} lockY={false} lockZ={false}>
+        {/* Dark contrast backdrop plane */}
+        <mesh position={[0, 0, -0.01]}>
+          <planeGeometry args={[label.length * 0.09 + 0.15, 0.24]} />
+          <meshBasicMaterial
+            color="#050711"
+            opacity={isActive ? 0.95 : 0.8}
+            transparent
+          />
+        </mesh>
+
+        <Text
+          fontSize={isActive ? 0.16 : 0.14}
+          color={isActive ? "#ffffff" : "#f1f5f9"}
+          anchorX="center"
+          anchorY="middle"
+          outlineWidth={0.012}
+          outlineColor="#000000"
+          outlineOpacity={1}
+        >
+          {label}
+        </Text>
+      </Billboard>
     </group>
   );
 }
 
-export function SkillsGalaxy() {
-  const group = useRef<THREE.Group>(null);
+export function SkillsGalaxy({
+  activeCategory,
+}: {
+  activeCategory?: SkillCategory | null;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
 
   const nodes = useMemo(() => {
-    return skills.slice(0, 14).map((skill, i) => {
-      const angle = (i / 14) * Math.PI * 2;
-      const radius = 2.2 + (i % 3) * 0.35;
-      const y = (i % 5) * 0.35 - 0.8;
+    return skills.slice(0, 16).map((skill, i) => {
+      const angle = (i / 16) * Math.PI * 2;
+      const radius = 2.3 + (i % 3) * 0.35;
+      const y = (i % 5) * 0.38 - 0.9;
       return {
         skill,
         position: new THREE.Vector3(
@@ -69,37 +111,46 @@ export function SkillsGalaxy() {
           y,
           Math.sin(angle) * radius,
         ),
-        color: categoryColors[skill.category],
+        color: categoryColors[skill.category] || "#22d3ee",
       };
     });
   }, []);
 
-  useFrame((state) => {
-    if (!group.current) return;
-    group.current.rotation.y = state.clock.elapsedTime * 0.15;
-  });
-
   return (
     <>
-      <ambientLight intensity={0.35} />
-      <pointLight position={[3, 3, 3]} intensity={1} color="#22d3ee" />
-      <pointLight position={[-3, -2, 2]} intensity={0.8} color="#6d28d9" />
+      {/* Enable Interactive Orbit / Drag / Auto-Rotate */}
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        autoRotate
+        autoRotateSpeed={1.0}
+        rotateSpeed={0.8}
+        dampingFactor={0.05}
+      />
+
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 5, 5]} intensity={1.2} color="#ffffff" />
+      <pointLight position={[-4, -3, 2]} intensity={1} color="#6d28d9" />
+
+      {/* Core Glowing Galaxy Center Orb */}
       <mesh>
-        <sphereGeometry args={[0.35, 32, 32]} />
+        <sphereGeometry args={[0.38, 32, 32]} />
         <meshStandardMaterial
           color="#6d28d9"
           emissive="#22d3ee"
-          emissiveIntensity={0.5}
+          emissiveIntensity={0.8}
           wireframe
         />
       </mesh>
-      <group ref={group}>
+
+      <group ref={groupRef}>
         {nodes.map(({ skill, position, color }) => (
           <SkillNode
             key={skill.name}
             position={position}
             label={skill.name}
             color={color}
+            isCategoryActive={activeCategory === skill.category}
           />
         ))}
       </group>
