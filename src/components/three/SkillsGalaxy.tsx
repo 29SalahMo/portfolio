@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Billboard, OrbitControls, Text } from "@react-three/drei";
+import { Billboard, Text } from "@react-three/drei";
 import * as THREE from "three";
 import { skills, type SkillCategory } from "@/data/skills";
 
@@ -33,14 +33,12 @@ function SkillNode({
 
   useFrame((state) => {
     if (!meshRef.current) return;
-    // Floating animation
     meshRef.current.position.y =
       position.y + Math.sin(state.clock.elapsedTime * 1.5 + position.x) * 0.08;
   });
 
   return (
     <group position={position}>
-      {/* Interactive Glowing Sphere */}
       <mesh
         ref={meshRef}
         onPointerOver={(e) => {
@@ -64,13 +62,11 @@ function SkillNode({
         />
       </mesh>
 
-      {/* Glowing HUD connector line */}
       <mesh position={[0, 0.22, 0]}>
         <cylinderGeometry args={[0.008, 0.008, 0.14, 8]} />
         <meshBasicMaterial color={isActive ? "#22d3ee" : color} opacity={0.6} transparent />
       </mesh>
 
-      {/* Always Camera-Facing Billboard Text with Hologram Glow */}
       <Billboard position={[0, 0.35, 0]} follow lockX={false} lockY={false} lockZ={false}>
         <Text
           fontSize={isActive ? 0.17 : 0.14}
@@ -90,8 +86,10 @@ function SkillNode({
 
 export function SkillsGalaxy({
   activeCategory,
+  mouseRef,
 }: {
   activeCategory?: SkillCategory | null;
+  mouseRef?: React.RefObject<{ x: number; y: number }>;
 }) {
   const groupRef = useRef<THREE.Group>(null);
 
@@ -112,18 +110,27 @@ export function SkillsGalaxy({
     });
   }, []);
 
+  useFrame(() => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += 0.004;
+
+    const mx = mouseRef?.current?.x ?? 0;
+    const my = mouseRef?.current?.y ?? 0;
+
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      -my * 0.35,
+      0.05,
+    );
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(
+      groupRef.current.rotation.z,
+      mx * 0.2,
+      0.05,
+    );
+  });
+
   return (
     <>
-      {/* Enable Interactive Orbit / Drag / Auto-Rotate */}
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={1.0}
-        rotateSpeed={0.8}
-        dampingFactor={0.05}
-      />
-
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={1.2} color="#ffffff" />
       <pointLight position={[-4, -3, 2]} intensity={1} color="#6d28d9" />

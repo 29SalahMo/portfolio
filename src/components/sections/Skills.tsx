@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function Skills() {
   const ref = useGsapReveal<HTMLElement>();
   const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [activeCategory, setActiveCategory] = useState<SkillCategory | null>(null);
 
@@ -42,7 +43,6 @@ export function Skills() {
 
     observer.observe(el);
 
-    // Fallback timer to pre-warm canvas after main thread settles
     const timer = setTimeout(() => setIsVisible(true), 600);
 
     return () => {
@@ -57,33 +57,27 @@ export function Skills() {
         <SectionHeading
           eyebrow="Skills"
           title="Futuristic skills galaxy"
-          description="Technologies orbit in 3D space - drag to rotate, explore categories, and inspect the stack."
+          description="Technologies orbit in 3D space - explore categories and the stack that powers my work."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
           <div
             ref={containerRef}
-            className="glass neon-border relative h-[420px] overflow-hidden rounded-3xl cursor-grab active:cursor-grabbing"
+            className="glass neon-border relative h-[420px] overflow-hidden rounded-3xl"
+            onPointerMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+              mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+            }}
             data-reveal
           >
-            <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border border-cyan-400/20 bg-black/40 px-3 py-1 text-[11px] font-medium tracking-wide text-cyan-300 backdrop-blur-md">
-              Interactive 3D Galaxy
-            </div>
-            <div className="pointer-events-none absolute bottom-4 left-4 z-10 text-[10px] uppercase tracking-[0.25em] text-white/50">
-              Drag to rotate * Scroll to zoom
-            </div>
-
             {isVisible ? (
               <Canvas camera={{ position: [0, 0, 5.5], fov: 52 }} dpr={[1, 1.5]}>
                 <Suspense fallback={null}>
-                  <SkillsGalaxy activeCategory={activeCategory} />
+                  <SkillsGalaxy mouseRef={mouseRef} activeCategory={activeCategory} />
                 </Suspense>
               </Canvas>
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-xs text-cyan-300/60">
-                Loading 3D space...
-              </div>
-            )}
+            ) : null}
           </div>
 
           <div className="space-y-4">
