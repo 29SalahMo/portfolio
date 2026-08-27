@@ -63,19 +63,25 @@ function CoreOrb() {
   );
 }
 
-export function HeroScene({ mouse }: { mouse: { x: number; y: number } }) {
+export function HeroScene({
+  mouseRef,
+}: {
+  mouseRef: React.RefObject<{ x: number; y: number }>;
+}) {
   const group = useRef<THREE.Group>(null);
 
   useFrame(() => {
     if (!group.current) return;
+    const mx = mouseRef.current?.x ?? 0;
+    const my = mouseRef.current?.y ?? 0;
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
-      mouse.x * 0.35,
+      mx * 0.35,
       0.05,
     );
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,
-      -mouse.y * 0.2,
+      -my * 0.2,
       0.05,
     );
   });

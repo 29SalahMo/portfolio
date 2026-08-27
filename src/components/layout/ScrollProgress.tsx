@@ -1,18 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+
+    const updateProgress = () => {
       const doc = document.documentElement;
       const scrollTop = doc.scrollTop;
       const max = doc.scrollHeight - doc.clientHeight;
-      setProgress(max > 0 ? scrollTop / max : 0);
+      const progress = max > 0 ? scrollTop / max : 0;
+      if (barRef.current) {
+        barRef.current.style.transform = `scaleX(${progress})`;
+      }
+      ticking = false;
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateProgress);
+      }
+    };
+
+    updateProgress();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -23,9 +37,11 @@ export function ScrollProgress() {
       aria-hidden
     >
       <div
-        className="h-full bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-500 shadow-[0_0_20px_rgba(34,211,238,0.8)] transition-[width] duration-150"
-        style={{ width: `${progress * 100}%` }}
+        ref={barRef}
+        className="h-full w-full origin-left bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-500 shadow-[0_0_20px_rgba(34,211,238,0.8)]"
+        style={{ transform: "scaleX(0)" }}
       />
     </div>
   );
 }
+

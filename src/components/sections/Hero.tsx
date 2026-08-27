@@ -20,24 +20,28 @@ export function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from("[data-hero]", {
-        y: 60,
-        opacity: 0,
-        duration: 1.1,
-        stagger: 0.12,
-        ease: "power3.out",
-        delay: 1.1,
+        y: 20,
+        opacity: 0.6,
+        duration: 0.6,
+        stagger: 0.06,
+        ease: "power2.out",
+        delay: 0.05,
       });
 
       const roles = rolesRef.current?.querySelectorAll("[data-role]");
       if (roles?.length) {
-        gsap.to(roles, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "power2.out",
-          delay: 1.6,
-        });
+        gsap.fromTo(
+          roles,
+          { opacity: 0.6, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            delay: 0.15,
+          },
+        );
       }
     });
     return () => ctx.revert();
@@ -80,8 +84,7 @@ export function Hero() {
             <span
               key={role}
               data-role
-              className="glass rounded-full px-3 py-1.5 text-xs text-white/80 opacity-0 sm:px-4 sm:py-2 sm:text-sm"
-              style={{ transform: "translateY(12px)" }}
+              className="glass rounded-full px-3 py-1.5 text-xs text-white/80 opacity-100 sm:px-4 sm:py-2 sm:text-sm"
             >
               {role}
             </span>

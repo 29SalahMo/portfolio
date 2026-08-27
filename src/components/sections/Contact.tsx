@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,11 +21,31 @@ const ContactSphere = dynamic(
 
 export function Contact() {
   const ref = useGsapReveal<HTMLElement>();
+  const sphereContainerRef = useRef<HTMLDivElement>(null);
+  const [isCanvasVisible, setIsCanvasVisible] = useState(false);
   const [focused, setFocused] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(
     "idle",
   );
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    const el = sphereContainerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsCanvasVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const whatsappQuickUrl = buildWhatsAppUrl(buildDefaultWhatsAppGreeting());
   const telUrl = `tel:${profile.phone.replace(/\s/g, "")}`;
@@ -96,16 +116,19 @@ export function Contact() {
 
         <div className="mt-10 grid gap-6 lg:mt-14 lg:grid-cols-2 lg:gap-8">
           <div
+            ref={sphereContainerRef}
             className="glass neon-border relative min-h-[280px] overflow-hidden rounded-3xl sm:min-h-[360px]"
             data-reveal
           >
-            <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.25]}>
-              <Suspense fallback={null}>
-                <ambientLight intensity={0.3} />
-                <pointLight position={[2, 2, 2]} intensity={1} color="#22d3ee" />
-                <ContactSphere active={focused || status === "success"} />
-              </Suspense>
-            </Canvas>
+            {isCanvasVisible ? (
+              <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.25]}>
+                <Suspense fallback={null}>
+                  <ambientLight intensity={0.3} />
+                  <pointLight position={[2, 2, 2]} intensity={1} color="#22d3ee" />
+                  <ContactSphere active={focused || status === "success"} />
+                </Suspense>
+              </Canvas>
+            ) : null}
           </div>
 
           <GlassCard className="relative" glow data-reveal>

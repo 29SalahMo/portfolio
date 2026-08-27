@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { skillCategories, skills } from "@/data/skills";
@@ -19,16 +19,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Skills() {
   const ref = useGsapReveal<HTMLElement>();
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: "#skills",
-      start: "top center",
-      end: "bottom center",
-      onUpdate: (self) => setScrollProgress(self.progress),
-    });
-    return () => trigger.kill();
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -42,14 +51,17 @@ export function Skills() {
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
           <div
+            ref={containerRef}
             className="glass neon-border relative h-[420px] overflow-hidden rounded-3xl"
             data-reveal
           >
-            <Canvas camera={{ position: [0, 0, 5.5], fov: 55 }} dpr={[1, 1.5]}>
-              <Suspense fallback={null}>
-                <SkillsGalaxy scrollProgress={scrollProgress} />
-              </Suspense>
-            </Canvas>
+            {isVisible ? (
+              <Canvas camera={{ position: [0, 0, 5.5], fov: 55 }} dpr={[1, 1.25]}>
+                <Suspense fallback={null}>
+                  <SkillsGalaxy />
+                </Suspense>
+              </Canvas>
+            ) : null}
           </div>
 
           <div className="space-y-4">

@@ -54,7 +54,7 @@ function SkillNode({
   );
 }
 
-export function SkillsGalaxy({ scrollProgress = 0 }: { scrollProgress?: number }) {
+export function SkillsGalaxy() {
   const group = useRef<THREE.Group>(null);
 
   const nodes = useMemo(() => {
@@ -76,8 +76,7 @@ export function SkillsGalaxy({ scrollProgress = 0 }: { scrollProgress?: number }
 
   useFrame((state) => {
     if (!group.current) return;
-    group.current.rotation.y =
-      state.clock.elapsedTime * 0.12 + scrollProgress * Math.PI * 2;
+    group.current.rotation.y = state.clock.elapsedTime * 0.15;
   });
 
   return (
