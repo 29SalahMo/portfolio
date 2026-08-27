@@ -64,26 +64,22 @@ function SkillNode({
         />
       </mesh>
 
-      {/* Always Camera-Facing Billboard Text with Zero Reflection / Maximum Readability */}
-      <Billboard position={[0, 0.32, 0]} follow lockX={false} lockY={false} lockZ={false}>
-        {/* Dark contrast backdrop plane */}
-        <mesh position={[0, 0, -0.01]}>
-          <planeGeometry args={[label.length * 0.09 + 0.15, 0.24]} />
-          <meshBasicMaterial
-            color="#050711"
-            opacity={isActive ? 0.95 : 0.8}
-            transparent
-          />
-        </mesh>
+      {/* Glowing HUD connector line */}
+      <mesh position={[0, 0.22, 0]}>
+        <cylinderGeometry args={[0.008, 0.008, 0.14, 8]} />
+        <meshBasicMaterial color={isActive ? "#22d3ee" : color} opacity={0.6} transparent />
+      </mesh>
 
+      {/* Always Camera-Facing Billboard Text with Hologram Glow */}
+      <Billboard position={[0, 0.35, 0]} follow lockX={false} lockY={false} lockZ={false}>
         <Text
-          fontSize={isActive ? 0.16 : 0.14}
+          fontSize={isActive ? 0.17 : 0.14}
           color={isActive ? "#ffffff" : "#f1f5f9"}
           anchorX="center"
           anchorY="middle"
-          outlineWidth={0.012}
-          outlineColor="#000000"
-          outlineOpacity={1}
+          outlineWidth={0.014}
+          outlineColor="#030408"
+          outlineOpacity={0.95}
         >
           {label}
         </Text>
