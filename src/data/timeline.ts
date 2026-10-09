@@ -3,90 +3,82 @@ export type TimelineEvent = {
   title: string;
   org: string;
   description: string;
+  badge?: string;
 };
 
 export const timeline: TimelineEvent[] = [
   {
-    year: "2025-2026",
-    title: "AI Text Summarizer - Graduation Project",
-    org: "MSA University",
+    year: "Oct 2026 – Present",
+    title: "IT Technical Support Engineer",
+    org: "SEVEN HANDS FOR ENGINEERING SERVICES & CONSTRUCTION",
     description:
-      "Distinction project: HuggingFace summarization, semantic ranking, Flask API, HCI-focused bilingual UI.",
+      "Multi-branch IT infrastructure management, hardware/software deployment, malware incident recovery, data analysis, statistical reporting for engineering surveys, and AI-assisted productivity.",
+    badge: "Current Role",
+  },
+  {
+    year: "2025 - 2026",
+    title: "IT Help Desk Engineer",
+    org: "HCC (5 Months)",
+    description:
+      "First-line technical troubleshooting, SLA ticket logging and escalation, Office 365, workstation configuration, and software deployment.",
+  },
+  {
+    year: "2025 - 2026",
+    title: "BSc Computer Science & AI Graduation Project",
+    org: "University of Greenwich & MSA University",
+    description:
+      "British-accredited BSc (3rd Class Honours). Distinction project: Automated AI text summarizer using HuggingFace Transformers, semantic similarity ranking, Flask API, and HCI design.",
+    badge: "Distinction",
   },
   {
     year: "2026",
     title: "AI Search & ML Classifier",
-    org: "Independent",
+    org: "Independent Project",
     description:
-      "Streamlit app with Uniform Cost Search, Greedy Search, and Decision Tree classification on the Iris dataset.",
+      "Streamlit application implementing Uniform Cost Search, Greedy Search, and Decision Tree classification on the Iris dataset.",
   },
   {
     year: "2026",
     title: "Gym Buddy Web App",
-    org: "Independent",
+    org: "Independent Project",
     description:
-      "Interactive gym platform featuring SQLite-based membership registration, login, and dynamic BMI workout & diet generators.",
+      "Interactive gym web application with SQLite authentication and personalized BMI workout & diet recommendation engine.",
   },
   {
-    year: "2025-2026",
+    year: "2025 - 2026",
     title: "A&A Legal Advisors Website",
-    org: "Independent",
+    org: "Client Project",
     description:
-      "Cinematic law firm site with GSAP scroll, R3F accents, practice-area showcases, and Supabase-backed flows.",
+      "Cinematic law firm platform featuring GSAP scroll storytelling, practice area showcases, and Supabase integration.",
   },
   {
     year: "2026",
     title: "Universal Translator (Desktop)",
-    org: "Independent",
+    org: "Independent Project",
     description:
-      "Tkinter translator with RTL Arabic UI, deep-translator integration, and PyInstaller Windows packaging.",
+      "Tkinter desktop translation app with RTL Arabic UI support, deep-translator integration, and single-file Windows executable packaging.",
   },
   {
     year: "2026",
     title: "Eldinamo Gaming Link Hub",
-    org: "Independent",
+    org: "Creator Platform",
     description:
-      "Premium creator link hub with electric blue storm branding, multi-platform social links, and Streamlabs donations.",
+      "Creator link hub featuring electric blue branding, multi-platform social links, and Streamlabs donation integration.",
   },
   {
-    year: "2025",
-    title: "Movra Luxury Store",
-    org: "Independent",
+    year: "2024 - 2025",
+    title: "Egyptian Restaurant Management POS/KDS",
+    org: "Independent SaaS",
     description:
-      "Luxury perfume and cosmetics e-commerce with cart, checkout, auth flows, and collection-based shopping experience.",
-  },
-  {
-    year: "2024-2025",
-    title: "Restaurant Management Platform",
-    org: "Independent",
-    description:
-      "Multi-role POS/KDS system with NestJS, JWT, Socket.IO, Next.js, and Docker Compose.",
+      "Multi-role restaurant management platform built with NestJS, TypeORM, Socket.IO, Next.js, and Docker Compose.",
   },
   {
     year: "2024",
-    title: "E-commerce and Financial Products",
-    org: "Independent",
-    description:
-      "3D cyberpunk storefront (Stripe, Prisma) and bilingual CFO services site (i18n, WhatsApp API).",
-  },
-  {
-    year: "2024",
-    title: "Mobile and Nutrition APIs",
-    org: "Independent",
-    description:
-      "Expo learning app with gamification; NutriCare REST API with JWT, rate limiting, and MySQL.",
-  },
-  {
-    year: "2023",
-    title: "Foundations and Charity System",
-    org: "Academic",
-    description:
-      "Full-stack PHP/MySQL charity platform with SRS documentation and reporting modules.",
-  },
-  {
-    year: "2024",
-    title: "HCIA-Security Training",
+    title: "HCIA-Security V4.0 Certification",
     org: "Huawei / ICT Talent Bank",
-    description: "45-hour security fundamentals alongside software engineering practice.",
+    description:
+      "45-hour intensive cybersecurity fundamentals covering network security, firewall operations, and threat protection.",
+    badge: "Certification",
   },
 ];
+

@@ -7,12 +7,12 @@ import * as THREE from "three";
 import { skills, type SkillCategory } from "@/data/skills";
 
 const categoryColors: Record<SkillCategory, string> = {
-  "AI & Machine Learning": "#22d3ee",
-  "Full Stack Development": "#3b82f6",
-  "UI/UX": "#a78bfa",
-  "Motion Design": "#fb7185",
-  "Backend Systems": "#34d399",
-  "Cloud & DevOps": "#fbbf24",
+  "IT Support & Hardware": "#22d3ee",
+  "Operating Systems & Networking": "#3b82f6",
+  "Cybersecurity Fundamentals": "#a78bfa",
+  "Data Analysis & Reporting": "#34d399",
+  "AI Tools & Productivity": "#fb7185",
+  "Programming & Full-Stack Development": "#fbbf24",
 };
 
 function SkillNode({

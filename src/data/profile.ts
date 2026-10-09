@@ -1,14 +1,17 @@
 export const profile = {
   name: "Salahaldin Mohamed",
   fullName: "Salahaldin Mohamed Salahaldin Abdalla",
+  currentRole: "IT Technical Support Engineer",
+  currentCompany: "SEVEN HANDS FOR ENGINEERING SERVICES & CONSTRUCTION",
+  headline: "Computer Science Engineer | IT Technical Support | Full-Stack Developer",
   roles: [
+    "IT Technical Support Engineer",
     "Computer Science Engineer",
-    "AI Developer",
     "Full Stack Developer",
-    "Creative Technologist",
+    "AI & Data Specialist",
   ],
   tagline:
-    "Building cinematic web experiences, production-grade systems, and AI-powered products.",
+    "I combine hands-on IT troubleshooting, analytical problem-solving, and software development to support reliable technology operations and build practical digital solutions.",
   location: "Giza, 6th of October, Egypt",
   email: "salahmohamed2912004@gmail.com",
   contactEmail: "salahmohamed2912004@gmail.com",
@@ -17,23 +20,26 @@ export const profile = {
   whatsapp: "+201018394829",
   github: "https://github.com/29SalahMo",
   linkedin: "https://www.linkedin.com/in/salahaldin291/",
+  website: "https://salahaldin-portfolio.vercel.app/",
   graduation: "BSc Computer Science - University of Greenwich / MSA (2026)",
   cv: {
-    en: "/cv-en.pdf",
-    ar: "/cv-ar.html",
+    en: "/Salahaldin_Updated_IT_CV.pdf",
+    ar: "/Salahaldin_CV_AR.html",
   },
   stats: [
+    { label: "Multi-Branch IT", value: "2 Branches" },
     { label: "Projects shipped", value: "17+" },
-    { label: "Years building", value: "3+" },
-    { label: "Stack focus", value: "Full Stack + AI" },
+    { label: "Core Stack", value: "IT Support + Full Stack" },
     { label: "Final project", value: "Distinction" },
   ],
 } as const;
 
 export const passions = [
-  "Secure API design (JWT, RBAC, rate limiting)",
-  "Real-time systems (Socket.IO, live dashboards)",
-  "3D and motion-driven UX (R3F, GSAP, Framer Motion)",
-  "NLP and semantic AI (Transformers, Flask APIs)",
+  "Multi-branch IT support & workstation infrastructure",
+  "Malware detection & incident response handling",
+  "Data analysis, statistical reporting & engineering surveys",
+  "AI-assisted workflows & prompt engineering",
+  "Full-stack web design (Next.js, React, Node.js, Python)",
   "Cybersecurity fundamentals (HCIA-Security)",
 ] as const;
+

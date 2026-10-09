@@ -59,7 +59,7 @@ export function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
           </span>
-          Available for Full Stack & AI Engineering Roles (2026)
+          IT Support Engineer @ Seven Hands &bull; Full Stack & AI Specialist
         </div>
 
         <div data-hero className="mb-6">
@@ -75,6 +75,10 @@ export function Hero() {
             {profile.name}
           </span>
         </h1>
+
+        <p data-hero className="mt-3 text-sm font-semibold tracking-wide text-cyan-300 sm:text-base md:text-lg">
+          {profile.headline}
+        </p>
 
         <div
           ref={rolesRef}
@@ -94,10 +98,11 @@ export function Hero() {
 
         <p
           data-hero
-          className="mt-6 max-w-2xl text-base leading-relaxed text-white/65 sm:mt-8 sm:text-lg md:text-xl"
+          className="mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:mt-8 sm:text-lg md:text-xl"
         >
           {profile.tagline}
         </p>
+
 
         <div
           data-hero

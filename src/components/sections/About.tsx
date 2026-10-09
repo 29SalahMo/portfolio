@@ -12,19 +12,19 @@ export function About() {
     <section id="about" ref={ref} className="section-pad py-20 md:py-36">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="About"
-          title="Engineering with cinematic precision"
-          description="I design and ship full-stack products that feel premium - from AI systems and secure APIs to immersive 3D interfaces."
+          eyebrow="About Me"
+          title="Bridging IT Infrastructure, AI & Full-Stack Development"
+          description="I combine practical IT support execution with analytical data reasoning, machine learning research, and full-stack software development."
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <GlassCard className="lg:col-span-2" glow data-reveal>
-            <h3 className="text-lg font-medium text-white">Who I am</h3>
-            <p className="mt-3 leading-relaxed text-white/65">
-              {profile.fullName} - {profile.graduation}. Based in{" "}
-              {profile.location}. I combine software engineering with motion
-              design and AI to build experiences that feel alive and
-              production-ready.
+            <h3 className="text-lg font-medium text-white">Professional Profile</h3>
+            <p className="mt-3 leading-relaxed text-white/75">
+              I am <strong className="text-white">{profile.fullName}</strong>, currently serving as an <strong className="text-cyan-300">IT Technical Support Engineer</strong> at <strong className="text-cyan-200">{profile.currentCompany}</strong> (Oct 1, 2026 – Present). 
+            </p>
+            <p className="mt-3 leading-relaxed text-white/70">
+              Holding a {profile.graduation}, my current role spans multi-branch IT technical operations, hardware deployment, malware incident response handling, statistical reporting, engineering surveys, and AI-assisted workflow acceleration.
             </p>
           </GlassCard>
 

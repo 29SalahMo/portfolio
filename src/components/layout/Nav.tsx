@@ -7,6 +7,9 @@ import { MobileNav } from "./MobileNav";
 const links = [
   { href: "#hero", id: "hero", label: "Home" },
   { href: "#about", id: "about", label: "About" },
+  { href: "#experience", id: "experience", label: "Experience" },
+  { href: "#capabilities", id: "capabilities", label: "Capabilities" },
+  { href: "#ai-showcase", id: "ai-showcase", label: "AI & Decision" },
   { href: "#skills", id: "skills", label: "Skills" },
   { href: "#projects", id: "projects", label: "Projects" },
   { href: "#journey", id: "journey", label: "Journey" },
