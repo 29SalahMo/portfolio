@@ -29,7 +29,7 @@ function ProjectCard({
   return (
     <article
       className={cn(
-        "project-card glass neon-border group relative h-auto min-h-[400px] w-full max-w-full shrink-0 overflow-hidden rounded-3xl p-6 sm:min-h-[460px] sm:p-7 lg:h-[min(70vh,540px)] lg:w-[min(460px,42vw)] xl:w-[500px] xl:h-[580px] cursor-pointer",
+        "project-card glass neon-border group relative h-auto min-h-[360px] w-full max-w-full shrink-0 overflow-hidden rounded-3xl p-5 sm:min-h-[420px] sm:p-6 lg:h-[min(62vh,480px)] lg:w-[min(400px,38vw)] xl:w-[480px] xl:h-[540px] cursor-pointer",
         "transition-transform duration-500 will-change-transform hover:border-cyan-400/50",
       )}
       data-index={index}
@@ -217,7 +217,7 @@ export function Projects() {
       ref={sectionRef}
       className="relative overflow-hidden bg-black/40 py-12 lg:py-0"
     >
-      <div className="section-pad pt-16 pb-6 sm:pt-24 sm:pb-8">
+      <div className="section-pad pt-10 pb-4 sm:pt-14 sm:pb-6">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
             eyebrow="Projects"

@@ -19,7 +19,7 @@ export function MobileNav({ activeSection = "hero" }: { activeSection?: string }
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         type="button"
         aria-expanded={open}
@@ -47,16 +47,16 @@ export function MobileNav({ activeSection = "hero" }: { activeSection?: string }
       {/* Backdrop overlay for closing */}
       {open ? (
         <div
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm xl:hidden"
           onClick={() => setOpen(false)}
         />
       ) : null}
 
       <div
         className={cn(
-          "fixed inset-x-0 top-[calc(4.5rem+env(safe-area-inset-top))] z-40 mx-4 overflow-hidden rounded-2xl border border-cyan-400/20 bg-black/95 shadow-[0_15px_40px_rgba(0,0,0,0.9)] backdrop-blur-2xl transition-all duration-300 lg:hidden",
+          "fixed inset-x-0 top-[calc(4rem+env(safe-area-inset-top))] z-40 mx-4 overflow-hidden rounded-2xl border border-cyan-400/20 bg-black/95 shadow-[0_15px_40px_rgba(0,0,0,0.9)] backdrop-blur-2xl transition-all duration-300 xl:hidden",
           open
-            ? "pointer-events-auto max-h-[80vh] opacity-100 scale-100"
+            ? "pointer-events-auto max-h-[85vh] opacity-100 scale-100 overflow-y-auto"
             : "pointer-events-none max-h-0 opacity-0 scale-95",
         )}
       >

@@ -26,7 +26,7 @@ export function Capabilities() {
       : capabilities.filter((c) => c.category === activeCategory);
 
   return (
-    <section id="capabilities" ref={ref} className="section-pad py-20 md:py-36">
+    <section id="capabilities" ref={ref} className="section-pad py-14 md:py-20 xl:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Core Competencies"

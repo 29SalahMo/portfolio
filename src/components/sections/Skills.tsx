@@ -53,7 +53,7 @@ export function Skills() {
   }, []);
 
   return (
-    <section id="skills" ref={ref} className="section-pad relative py-20 md:py-36">
+    <section id="skills" ref={ref} className="section-pad relative py-14 md:py-20 xl:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Tech Stack & Tools"

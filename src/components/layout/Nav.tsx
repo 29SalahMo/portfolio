@@ -46,25 +46,25 @@ export function Nav() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        "pt-[calc(0.75rem+env(safe-area-inset-top))]",
+        "pt-[calc(0.5rem+env(safe-area-inset-top))]",
         scrolled ? "pb-2" : "pb-3",
       )}
     >
       <nav
         className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between gap-3 transition-all duration-500 px-4 sm:px-6",
-          scrolled && "glass neon-border max-w-4xl rounded-full py-2.5 px-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl border border-cyan-400/20",
+          "mx-auto flex max-w-6xl items-center justify-between gap-2 transition-all duration-500 px-4 sm:px-6",
+          scrolled && "glass neon-border max-w-5xl rounded-full py-2 px-4 sm:px-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl border border-cyan-400/20",
         )}
       >
         <a
           href="#hero"
-          className="text-base font-bold tracking-wider text-white transition-transform hover:scale-105"
+          className="text-base font-bold tracking-wider text-white transition-transform hover:scale-105 shrink-0"
         >
           SM<span className="text-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.8)]">.</span>
         </a>
 
-        {/* Desktop Links with Active Glow Pill */}
-        <ul className="hidden items-center gap-1.5 text-xs font-medium text-white/70 lg:flex lg:gap-2">
+        {/* Laptop & Desktop Links with Active Glow Pill */}
+        <ul className="hidden items-center gap-1 text-[11px] font-medium text-white/70 xl:flex xl:gap-1.5 xl:text-xs">
           {links.map((l) => {
             const isActive = activeSection === l.id;
             return (
@@ -72,7 +72,7 @@ export function Nav() {
                 <a
                   href={l.href}
                   className={cn(
-                    "relative rounded-full px-3.5 py-1.5 transition-all duration-300",
+                    "relative rounded-full px-2.5 py-1 transition-all duration-300 xl:px-3.5 xl:py-1.5",
                     isActive
                       ? "bg-cyan-400/20 text-cyan-100 font-semibold shadow-[0_0_15px_rgba(34,211,238,0.25)] border border-cyan-400/40"
                       : "hover:text-cyan-200 hover:bg-white/5 text-white/75",
@@ -85,10 +85,10 @@ export function Nav() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <a
             href="#contact"
-            className="hidden rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-2 text-xs font-semibold text-black shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:brightness-110 sm:inline-flex"
+            className="hidden rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-3.5 py-1.5 text-xs font-semibold text-black shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:brightness-110 sm:inline-flex"
           >
             Hire me
           </a>

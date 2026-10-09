@@ -9,7 +9,7 @@ export function Experience() {
   const ref = useGsapReveal<HTMLElement>({ stagger: 0.1 });
 
   return (
-    <section id="experience" ref={ref} className="section-pad py-20 md:py-36">
+    <section id="experience" ref={ref} className="section-pad py-14 md:py-20 xl:py-28">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Workplace Experience"
