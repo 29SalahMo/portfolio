@@ -5,12 +5,23 @@ import { Canvas } from "@react-three/fiber";
 import { HeroScene } from "./HeroScene";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
+/** True on touch/coarse-pointer devices (phones, tablets) */
+function isMobile() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 export function HeroCanvas() {
   const reduced = usePrefersReducedMotion();
   const mouseRef = useRef({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
+  // Skip heavy 3-D canvas on mobile for a faster FCP and no scroll jank
+  const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
+    const m = isMobile();
+    setMobile(m);
+    if (m) return; // Don't mount canvas at all on touch devices
     // Defer Canvas mount until after main thread paint
     const id = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(id);
@@ -20,17 +31,22 @@ export function HeroCanvas() {
     <div
       className="absolute inset-0 -z-10"
       onPointerMove={(e) => {
+        if (mobile) return;
         const rect = e.currentTarget.getBoundingClientRect();
         mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       }}
       aria-hidden
     >
-      {mounted ? (
+      {!mobile && mounted ? (
         <Canvas
           camera={{ position: [0, 0, 6], fov: 50 }}
           dpr={[1, reduced ? 1 : 1.25]}
-          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          gl={{
+            antialias: !mobile,
+            alpha: true,
+            powerPreference: "high-performance",
+          }}
         >
           <Suspense fallback={null}>
             <HeroScene mouseRef={mouseRef} />

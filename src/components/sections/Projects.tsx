@@ -207,6 +207,8 @@ export function Projects() {
 
   const scrollTrack = (direction: "left" | "right") => {
     if (!trackRef.current) return;
+    // On desktop the track is GSAP-pinned (not scrollable); arrows are hidden on mobile.
+    // On tablet (< lg), the track overflows horizontally — scroll it normally.
     const amount = direction === "left" ? -450 : 450;
     trackRef.current.scrollBy({ left: amount, behavior: "smooth" });
   };
@@ -285,7 +287,8 @@ export function Projects() {
       <div className="section-pad flex flex-col gap-6 pb-12 lg:h-[min(78vh,660px)] lg:flex-row lg:items-center lg:gap-0 lg:pb-0">
         <div
           ref={trackRef}
-          className="flex w-full flex-col gap-6 overflow-x-auto lg:overflow-x-visible lg:w-max lg:flex-row lg:gap-7 lg:px-6 scrollbar-none"
+          className="flex w-full flex-col gap-6 overflow-x-auto lg:overflow-x-visible lg:w-max lg:flex-row lg:gap-7 lg:px-6 scrollbar-none touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           {filtered.map((project, i) => (
             <ProjectCard

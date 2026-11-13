@@ -12,7 +12,14 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <ScrollProgress />
       <CustomCursor />
       <Nav />
-      <main className="relative overflow-x-clip">{children}</main>
+      {/*
+        touch-action: pan-y ensures the browser always keeps vertical
+        scrolling even if JS event handlers are attached. This eliminates
+        the most common cause of iOS/Android scroll jank.
+      */}
+      <main className="relative overflow-x-clip" style={{ touchAction: "pan-y" }}>
+        {children}
+      </main>
     </>
   );
 }

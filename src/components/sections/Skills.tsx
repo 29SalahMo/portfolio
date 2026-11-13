@@ -18,14 +18,22 @@ const SkillsGalaxy = dynamic(
 
 gsap.registerPlugin(ScrollTrigger);
 
+function isMobile() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 export function Skills() {
   const ref = useGsapReveal<HTMLElement>();
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [activeCategory, setActiveCategory] = useState<SkillCategory | null>(null);
 
   useEffect(() => {
+    setIsMobileDevice(isMobile());
+
     const el = containerRef.current;
     if (!el) {
       setIsVisible(true);
@@ -39,7 +47,7 @@ export function Skills() {
           observer.disconnect();
         }
       },
-      { rootMargin: "800px" },
+      { rootMargin: "400px" },
     );
 
     observer.observe(el);
@@ -62,26 +70,29 @@ export function Skills() {
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div
-            ref={containerRef}
-            className="glass neon-border relative h-[480px] overflow-hidden rounded-3xl"
-            onPointerMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-              mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-            }}
-            data-reveal
-          >
-            {isVisible ? (
-              <Canvas camera={{ position: [0, 0, 5.5], fov: 52 }} dpr={[1, 1.5]}>
-                <Suspense fallback={null}>
-                  <SkillsGalaxy mouseRef={mouseRef} activeCategory={activeCategory} />
-                </Suspense>
-              </Canvas>
-            ) : null}
-          </div>
+          {/* 3D Galaxy — hidden on mobile to avoid jank */}
+          {!isMobileDevice && (
+            <div
+              ref={containerRef}
+              className="glass neon-border relative h-[480px] overflow-hidden rounded-3xl"
+              onPointerMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+              }}
+              data-reveal
+            >
+              {isVisible ? (
+                <Canvas camera={{ position: [0, 0, 5.5], fov: 52 }} dpr={[1, 1.25]}>
+                  <Suspense fallback={null}>
+                    <SkillsGalaxy mouseRef={mouseRef} activeCategory={activeCategory} />
+                  </Suspense>
+                </Canvas>
+              ) : null}
+            </div>
+          )}
 
-          <div className="space-y-4">
+          <div className={cn("space-y-4", isMobileDevice && "lg:col-span-2")}>
             {skillCategories.map((cat) => {
               const catSkills = skills.filter((s) => s.category === cat);
               const isActive = activeCategory === cat;
@@ -139,5 +150,4 @@ export function Skills() {
     </section>
   );
 }
-
 

@@ -7,32 +7,44 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Detect coarse-pointer (touch) devices — Lenis smooth-scroll is off for them */
+function isTouchDevice() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 function useLenisScroll() {
   useEffect(() => {
+    // On mobile/touch devices skip Lenis — native scroll is smoother and
+    // avoids the momentum/glitch issues caused by double-handling touch events.
+    if (isTouchDevice()) {
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      ScrollTrigger.refresh();
+      return;
+    }
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 0.85,
     });
 
     const onResize = () => {
       ScrollTrigger.refresh();
     };
 
-    lenis.on("scroll", ScrollTrigger.update);
-
+    // gsap.ticker already passes milliseconds — do NOT multiply by 1000
     const tick = (time: number) => {
-      lenis.raf(time * 1000);
+      lenis.raf(time);
     };
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
+    lenis.on("scroll", ScrollTrigger.update);
+
     window.addEventListener("resize", onResize, { passive: true });
 
-    // Important: set ScrollTrigger to use the native scroller while Lenis
-    // handles smoothing. This avoids brittle scrollerProxy setups early on.
     ScrollTrigger.config({ ignoreMobileResize: true });
     ScrollTrigger.refresh();
 

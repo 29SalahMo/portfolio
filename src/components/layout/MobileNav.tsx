@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 
 const links = [
@@ -17,6 +17,20 @@ const links = [
 
 export function MobileNav({ activeSection = "hero" }: { activeSection?: string }) {
   const [open, setOpen] = useState(false);
+
+  // Lock body scroll while menu is open (prevents scroll-behind glitch on iOS)
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
     <div className="xl:hidden">
@@ -44,11 +58,11 @@ export function MobileNav({ activeSection = "hero" }: { activeSection?: string }
         </svg>
       </button>
 
-      {/* Backdrop overlay for closing */}
+      {/* Backdrop overlay — tapping outside closes menu */}
       {open ? (
         <div
           className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm xl:hidden"
-          onClick={() => setOpen(false)}
+          onClick={close}
         />
       ) : null}
 
@@ -67,7 +81,7 @@ export function MobileNav({ activeSection = "hero" }: { activeSection?: string }
               <li key={l.href}>
                 <a
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   className={cn(
                     "block rounded-xl px-4 py-3 text-sm transition-all",
                     isActive
@@ -83,7 +97,7 @@ export function MobileNav({ activeSection = "hero" }: { activeSection?: string }
           <li className="border-t border-white/10 pt-2.5 mt-1">
             <a
               href="#contact"
-              onClick={() => setOpen(false)}
+              onClick={close}
               className="block rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-3 text-center text-sm font-semibold text-black shadow-[0_0_20px_rgba(34,211,238,0.3)]"
             >
               Hire me
