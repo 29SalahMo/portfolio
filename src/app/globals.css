@@ -143,6 +143,17 @@ body {
   display: none;
 }
 
+/* ─── Main content wrapper ──────────────────────────────────── */
+/* On touch devices: tell browser vertical pan is always allowed —
+   prevents scroll-block from pointerdown/touchstart listeners.
+   On desktop: leave touch-action alone so GSAP pin + horizontal
+   scroll (Projects section) work without interference.           */
+@media (pointer: coarse) {
+  .site-main {
+    touch-action: pan-y;
+  }
+}
+
 /* ─── Reduced motion ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
