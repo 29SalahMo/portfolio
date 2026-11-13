@@ -12,7 +12,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <ScrollProgress />
       <CustomCursor />
       <Nav />
-      <main className="relative overflow-x-clip site-main">
+      <main className="relative overflow-x-clip">
         {children}
       </main>
     </>

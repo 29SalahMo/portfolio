@@ -149,7 +149,7 @@ body {
    On desktop: leave touch-action alone so GSAP pin + horizontal
    scroll (Projects section) work without interference.           */
 @media (pointer: coarse) {
-  .site-main {
+  main {
     touch-action: pan-y;
   }
 }
