@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export function CustomCursor() {
@@ -15,27 +14,51 @@ export function CustomCursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    // Use gsap.quickTo for instant 144 FPS high-refresh rate tracking without GC overhead
-    const xDot = gsap.quickTo(dot, "x", { duration: 0.08, ease: "power3.out" });
-    const yDot = gsap.quickTo(dot, "y", { duration: 0.08, ease: "power3.out" });
-    const xRing = gsap.quickTo(ring, "x", { duration: 0.22, ease: "power2.out" });
-    const yRing = gsap.quickTo(ring, "y", { duration: 0.22, ease: "power2.out" });
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+    let isMoving = false;
+    let rafId: number | null = null;
 
-    const move = (e: MouseEvent) => {
-      xDot(e.clientX);
-      yDot(e.clientY);
-      xRing(e.clientX);
-      yRing(e.clientY);
+    const render = () => {
+      ringX += (mouseX - ringX) * 0.22;
+      ringY += (mouseY - ringY) * 0.22;
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+
+      // Loop only while interpolating, sleep when at rest (0% idle CPU)
+      if (Math.abs(mouseX - ringX) > 0.1 || Math.abs(mouseY - ringY) > 0.1) {
+        rafId = requestAnimationFrame(render);
+      } else {
+        isMoving = false;
+        rafId = null;
+      }
     };
 
-    const onDown = () => gsap.to(ring, { scale: 0.75, duration: 0.15 });
-    const onUp = () => gsap.to(ring, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+    const move = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!isMoving) {
+        isMoving = true;
+        rafId = requestAnimationFrame(render);
+      }
+    };
+
+    const onDown = () => {
+      ring.style.scale = "0.75";
+    };
+    const onUp = () => {
+      ring.style.scale = "1";
+    };
 
     window.addEventListener("mousemove", move, { passive: true });
     window.addEventListener("mousedown", onDown, { passive: true });
     window.addEventListener("mouseup", onUp, { passive: true });
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
@@ -49,12 +72,12 @@ export function CustomCursor() {
       <div
         ref={dotRef}
         className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300 will-change-transform lg:block"
-        style={{ transform: "translate3d(-50%, -50%, 0)" }}
+        style={{ transform: "translate3d(-100px, -100px, 0)" }}
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/50 will-change-transform lg:block"
-        style={{ transform: "translate3d(-50%, -50%, 0)" }}
+        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/50 transition-[scale] duration-200 will-change-transform lg:block"
+        style={{ transform: "translate3d(-100px, -100px, 0)" }}
       />
     </>
   );

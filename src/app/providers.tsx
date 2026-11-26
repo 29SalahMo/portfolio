@@ -24,25 +24,21 @@ if (typeof window !== "undefined") {
 
 function useLenisScroll() {
   useEffect(() => {
-    // Highly responsive Lenis configuration tuned for 60Hz, 120Hz & 144Hz+ displays
+    // Lenis with built-in autoRaf — runs animation frames ONLY during active scroll momentum.
+    // When idle, Lenis sleeps completely, allowing the main thread to remain 100% idle (eliminates TBT).
     const lenis = new Lenis({
+      autoRaf: true,
       duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.0,
-      syncTouch: false, // Native smooth touch momentum on mobile/tablets
+      syncTouch: false, // 100% native smooth momentum on mobile/tablets
       autoResize: true,
     });
 
+    // Notify ScrollTrigger when scroll moves
     lenis.on("scroll", ScrollTrigger.update);
-
-    // GSAP central ticker drives Lenis at exact monitor refresh rate (up to 144Hz / 240Hz)
-    const tick = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
 
     const onResize = () => {
       ScrollTrigger.refresh();
@@ -51,15 +47,13 @@ function useLenisScroll() {
 
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    // Refresh ScrollTrigger after initial mount & font paint
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 150);
+    }, 200);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener("resize", onResize);
-      gsap.ticker.remove(tick);
       lenis.destroy();
     };
   }, []);

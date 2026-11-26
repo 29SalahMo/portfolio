@@ -144,8 +144,14 @@ export function Projects() {
 
     cards.forEach((card) => {
       const el = card as HTMLElement;
+      let rect: DOMRect | null = null;
+
+      const onEnter = () => {
+        rect = el.getBoundingClientRect();
+      };
+
       const onMove = (e: MouseEvent) => {
-        const rect = el.getBoundingClientRect();
+        if (!rect) rect = el.getBoundingClientRect();
         const mx = ((e.clientX - rect.left) / rect.width) * 100;
         const my = ((e.clientY - rect.top) / rect.height) * 100;
         el.style.setProperty("--mx", `${mx}%`);
@@ -161,6 +167,7 @@ export function Projects() {
         });
       };
       const onLeave = () => {
+        rect = null;
         gsap.to(el, {
           rotateY: 0,
           rotateX: 0,
@@ -168,9 +175,12 @@ export function Projects() {
           ease: "elastic.out(1,0.5)",
         });
       };
-      el.addEventListener("mousemove", onMove);
-      el.addEventListener("mouseleave", onLeave);
+
+      el.addEventListener("mouseenter", onEnter, { passive: true });
+      el.addEventListener("mousemove", onMove, { passive: true });
+      el.addEventListener("mouseleave", onLeave, { passive: true });
       tiltHandlers.push(() => {
+        el.removeEventListener("mouseenter", onEnter);
         el.removeEventListener("mousemove", onMove);
         el.removeEventListener("mouseleave", onLeave);
       });
@@ -187,7 +197,7 @@ export function Projects() {
           end: () => `+=${getScroll()}`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true,
+          invalidateOnRefresh: false,
           anticipatePin: 1,
         },
       });
