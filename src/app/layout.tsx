@@ -117,7 +117,6 @@ export default function RootLayout({
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <link rel="preload" href="/og.jpg" as="image" type="image/jpeg" />
       </head>
       <body className="min-h-[100dvh] flex flex-col bg-black text-white selection:bg-cyan-300/20 selection:text-cyan-100">
         <Providers>{children}</Providers>

@@ -2,68 +2,71 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Returns true on coarse-pointer (touch) devices — phones & tablets.
- * On these we use native scroll; Lenis only runs on fine-pointer (mouse) devices.
- */
-function isTouchOnly() {
-  if (typeof window === "undefined") return false;
-  // matchMedia coarse = touch screen as primary pointer
-  return window.matchMedia("(pointer: coarse)").matches;
+// Suppress THREE.Clock deprecation warning from internal @react-three/fiber until Fiber updates to THREE.Timer
+if (typeof window !== "undefined") {
+  const origWarn = console.warn;
+  console.warn = (...args: unknown[]) => {
+    if (
+      typeof args[0] === "string" &&
+      args[0].includes("THREE.Clock: This module has been deprecated")
+    ) {
+      return;
+    }
+    origWarn.apply(console, args);
+  };
 }
 
 function useLenisScroll() {
   useEffect(() => {
-    // ── Mobile / tablet: skip Lenis, use native momentum scroll ──────────────
-    if (isTouchOnly()) {
-      ScrollTrigger.config({ ignoreMobileResize: true });
-      // A single refresh is enough to position all triggers correctly
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-      return;
-    }
-
-    // ── Desktop / laptop: Lenis smooth-wheel scroll ───────────────────────────
+    // Highly responsive Lenis configuration tuned for 60Hz, 120Hz & 144Hz+ displays
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      duration: 1.0,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.85,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      syncTouch: false, // Native smooth touch momentum on mobile/tablets
+      autoResize: true,
     });
 
-    // IMPORTANT: gsap.ticker passes time in SECONDS.
-    // Lenis.raf() expects MILLISECONDS — multiply by 1000.
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // GSAP central ticker drives Lenis at exact monitor refresh rate (up to 144Hz / 240Hz)
     const tick = (time: number) => {
       lenis.raf(time * 1000);
     };
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    // Keep ScrollTrigger in sync with Lenis virtual scroll position
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const onResize = () => ScrollTrigger.refresh();
+    const onResize = () => {
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("resize", onResize, { passive: true });
 
     ScrollTrigger.config({ ignoreMobileResize: true });
-    // Delay first refresh so the DOM is fully laid out
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    // Refresh ScrollTrigger after initial mount & font paint
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("resize", onResize);
       gsap.ticker.remove(tick);
       lenis.destroy();
-      ScrollTrigger.killAll(false);
     };
   }, []);
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useLenisScroll();
-  return children;
+  return <>{children}</>;
 }
 

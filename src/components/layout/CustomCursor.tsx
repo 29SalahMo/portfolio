@@ -15,17 +15,25 @@ export function CustomCursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
+    // Use gsap.quickTo for instant 144 FPS high-refresh rate tracking without GC overhead
+    const xDot = gsap.quickTo(dot, "x", { duration: 0.08, ease: "power3.out" });
+    const yDot = gsap.quickTo(dot, "y", { duration: 0.08, ease: "power3.out" });
+    const xRing = gsap.quickTo(ring, "x", { duration: 0.22, ease: "power2.out" });
+    const yRing = gsap.quickTo(ring, "y", { duration: 0.22, ease: "power2.out" });
+
     const move = (e: MouseEvent) => {
-      gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.12 });
-      gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.35 });
+      xDot(e.clientX);
+      yDot(e.clientY);
+      xRing(e.clientX);
+      yRing(e.clientY);
     };
 
-    const onDown = () => gsap.to(ring, { scale: 0.75, duration: 0.2 });
-    const onUp = () => gsap.to(ring, { scale: 1, duration: 0.35, ease: "elastic.out(1,0.4)" });
+    const onDown = () => gsap.to(ring, { scale: 0.75, duration: 0.15 });
+    const onUp = () => gsap.to(ring, { scale: 1, duration: 0.3, ease: "back.out(2)" });
 
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mousedown", onDown);
-    window.addEventListener("mouseup", onUp);
+    window.addEventListener("mousemove", move, { passive: true });
+    window.addEventListener("mousedown", onDown, { passive: true });
+    window.addEventListener("mouseup", onUp, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", move);
@@ -40,11 +48,13 @@ export function CustomCursor() {
     <>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300 lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300 will-change-transform lg:block"
+        style={{ transform: "translate3d(-50%, -50%, 0)" }}
       />
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/50 lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/50 will-change-transform lg:block"
+        style={{ transform: "translate3d(-50%, -50%, 0)" }}
       />
     </>
   );

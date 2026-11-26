@@ -37,6 +37,31 @@ export function MagneticButton({
   );
 
   if (href) {
+    const isStaticFileOrExternal =
+      Boolean(external) ||
+      Boolean(download) ||
+      href.startsWith("http") ||
+      href.startsWith("#") ||
+      href.endsWith(".pdf") ||
+      href.endsWith(".html");
+
+    if (isStaticFileOrExternal) {
+      return (
+        <a
+          ref={ref as React.RefObject<HTMLAnchorElement>}
+          href={href}
+          className={styles}
+          onMouseMove={onMove}
+          onMouseLeave={onLeave}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          download={download}
+        >
+          {children}
+        </a>
+      );
+    }
+
     return (
       <Link
         ref={ref as React.RefObject<HTMLAnchorElement>}
@@ -44,6 +69,7 @@ export function MagneticButton({
         className={styles}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
+        prefetch={false}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
         download={download}

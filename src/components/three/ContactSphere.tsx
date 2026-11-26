@@ -18,7 +18,7 @@ export function ContactSphere({ active }: { active?: boolean }) {
 
   return (
     <mesh ref={ref}>
-      <sphereGeometry args={[1.1, 64, 64]} />
+      <sphereGeometry args={[1.1, 48, 48]} />
       <MeshDistortMaterial
         color="#3b82f6"
         emissive="#22d3ee"

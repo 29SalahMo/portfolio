@@ -49,7 +49,7 @@ function CoreOrb() {
 
   return (
     <mesh ref={ref}>
-      <sphereGeometry args={[1.2, 64, 64]} />
+      <sphereGeometry args={[1.2, 48, 48]} />
       <MeshDistortMaterial
         color="#22d3ee"
         emissive="#6d28d9"
