@@ -83,7 +83,11 @@ export function Skills() {
               data-reveal
             >
               {isVisible ? (
-                <Canvas camera={{ position: [0, 0, 5.5], fov: 52 }} dpr={[1, 1.25]}>
+                <Canvas
+                  frameloop={isVisible ? "always" : "never"}
+                  camera={{ position: [0, 0, 5.5], fov: 52 }}
+                  dpr={[1, 1.25]}
+                >
                   <Suspense fallback={null}>
                     <SkillsGalaxy mouseRef={mouseRef} activeCategory={activeCategory} />
                   </Suspense>

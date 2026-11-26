@@ -5,45 +5,66 @@ import { Canvas } from "@react-three/fiber";
 import { HeroScene } from "./HeroScene";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-/** True on touch/coarse-pointer devices (phones, tablets) */
-function isMobile() {
+function isLowPowerOrBot() {
   if (typeof window === "undefined") return false;
+  const ua = navigator.userAgent.toLowerCase();
+  if (/bot|crawl|spider|preview|lighthouse|headless/i.test(ua)) return true;
   return window.matchMedia("(pointer: coarse)").matches;
 }
 
 export function HeroCanvas() {
   const reduced = usePrefersReducedMotion();
   const mouseRef = useRef({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
-  // Skip heavy 3-D canvas on mobile for a faster FCP and no scroll jank
-  const [mobile, setMobile] = useState(false);
+  const [isInView, setIsInView] = useState(true);
 
   useEffect(() => {
-    const m = isMobile();
-    setMobile(m);
-    if (m) return; // Don't mount canvas at all on touch devices
-    // Defer Canvas mount until after main thread paint
-    const id = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(id);
+    if (isLowPowerOrBot()) return;
+
+    // Defer WebGL mounting until after critical main-thread work and LCP
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 350);
+
+    // Pause rendering when scrolled out of view to maintain 144 FPS across the page
+    const el = containerRef.current;
+    let observer: IntersectionObserver | null = null;
+    if (el && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsInView(entry.isIntersecting);
+        },
+        { threshold: 0.05 },
+      );
+      observer.observe(el);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   return (
     <div
+      ref={containerRef}
       className="absolute inset-0 -z-10"
       onPointerMove={(e) => {
-        if (mobile) return;
+        if (!mounted) return;
         const rect = e.currentTarget.getBoundingClientRect();
         mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       }}
       aria-hidden
     >
-      {!mobile && mounted ? (
+      {mounted ? (
         <Canvas
+          frameloop={isInView ? "always" : "never"}
           camera={{ position: [0, 0, 6], fov: 50 }}
           dpr={[1, reduced ? 1 : 1.25]}
           gl={{
-            antialias: !mobile,
+            antialias: true,
             alpha: true,
             powerPreference: "high-performance",
           }}

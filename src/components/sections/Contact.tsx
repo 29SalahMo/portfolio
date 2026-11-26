@@ -162,7 +162,11 @@ export function Contact() {
             {/* Background 3D Sphere Canvas */}
             <div className="absolute inset-0 -z-10 opacity-75">
               {isCanvasVisible ? (
-                <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 1.25]}>
+                <Canvas
+                  frameloop={isCanvasVisible ? "always" : "never"}
+                  camera={{ position: [0, 0, 4], fov: 50 }}
+                  dpr={[1, 1.25]}
+                >
                   <Suspense fallback={null}>
                     <ambientLight intensity={0.4} />
                     <pointLight position={[2, 2, 2]} intensity={1.2} color="#22d3ee" />
@@ -182,7 +186,7 @@ export function Contact() {
                     fill
                     className="object-cover object-center"
                     sizes="64px"
-                    priority
+                    loading="lazy"
                   />
                 </div>
 

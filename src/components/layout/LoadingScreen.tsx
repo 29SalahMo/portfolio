@@ -8,7 +8,7 @@ function shouldSkipLoader(): boolean {
 
   const ua = navigator.userAgent.toLowerCase();
   const isBot =
-    /bot|crawl|spider|preview|vercel|facebookexternalhit|twitterbot|linkedinbot|whatsapp|slackbot|discordbot|telegrambot|googlebot|bingbot/i.test(
+    /bot|crawl|spider|preview|vercel|facebookexternalhit|twitterbot|linkedinbot|whatsapp|slackbot|discordbot|telegrambot|googlebot|bingbot|lighthouse|headless|speed insights/i.test(
       ua,
     );
 

@@ -130,14 +130,12 @@ export function Hero() {
           </MagneticButton>
         </div>
 
-        <motion.div
-          className="mt-14 flex flex-col items-center gap-2 text-white/40 sm:mt-20"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+        <div
+          className="mt-14 flex flex-col items-center gap-2 text-white/40 sm:mt-20 animate-pulse"
         >
           <span className="text-xs uppercase tracking-[0.3em]">Scroll</span>
           <div className="h-10 w-px bg-gradient-to-b from-cyan-300/80 to-transparent" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

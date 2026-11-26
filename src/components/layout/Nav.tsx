@@ -21,25 +21,41 @@ export function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
+    // Lightweight scroll listener for header background
+    let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-
-      // Determine active section based on scroll offset
-      const sectionIds = links.map((l) => l.id);
-      const scrollPos = window.scrollY + 200;
-
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sectionIds[i]);
-          break;
-        }
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 40);
+          ticking = false;
+        });
       }
     };
 
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // Use IntersectionObserver to determine active section — zero forced reflows!
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px" },
+    );
+
+    links.forEach((l) => {
+      const el = document.getElementById(l.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (

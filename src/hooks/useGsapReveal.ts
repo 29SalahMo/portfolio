@@ -36,18 +36,17 @@ export function useGsapReveal<T extends HTMLElement>(
     const ctx = gsap.context(() => {
       gsap.fromTo(
         targets,
-        { y, opacity, filter: "blur(8px)" },
+        { y, opacity },
         {
           y: 0,
           opacity: 1,
-          filter: "blur(0px)",
           duration,
           stagger,
           ease: "power3.out",
           scrollTrigger: {
             trigger: root,
             start,
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
         },
       );

@@ -30,12 +30,11 @@ export function ProfileAvatar({
       <div className="relative h-full w-full overflow-hidden rounded-full bg-zinc-900 ring-2 ring-black/80">
         <Image
           src="/profile.png"
-          alt=""
+          alt="Salahaldin Mohamed"
           fill
           priority={priority}
-          unoptimized
-          className="object-cover object-[center_15%]"
-          sizes="(max-width: 768px) 128px, 176px"
+          className="object-cover object-center"
+          sizes="(max-width: 640px) 128px, 176px"
         />
       </div>
     </div>

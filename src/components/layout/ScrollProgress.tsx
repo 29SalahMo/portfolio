@@ -7,12 +7,14 @@ export function ScrollProgress() {
 
   useEffect(() => {
     let ticking = false;
+    let maxScroll = 1;
+
+    const measure = () => {
+      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    };
 
     const updateProgress = () => {
-      const doc = document.documentElement;
-      const scrollTop = doc.scrollTop;
-      const max = doc.scrollHeight - doc.clientHeight;
-      const progress = max > 0 ? scrollTop / max : 0;
+      const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
       if (barRef.current) {
         barRef.current.style.transform = `scaleX(${progress})`;
       }
@@ -26,9 +28,15 @@ export function ScrollProgress() {
       }
     };
 
+    measure();
     updateProgress();
+    window.addEventListener("resize", measure, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (

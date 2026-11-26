@@ -12,9 +12,10 @@ const nextConfig: NextConfig = {
     // Keep device sizes tight — no need for 4K hero images
     deviceSizes: [390, 640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    minimumCacheTTL: 86400, // 1 day
+    minimumCacheTTL: 31536000,
     localPatterns: [
       { pathname: "/profile.png" },
+      { pathname: "/profile.webp" },
       { pathname: "/og.png" },
       { pathname: "/og.jpg" },
       { pathname: "/og-social.png" },
